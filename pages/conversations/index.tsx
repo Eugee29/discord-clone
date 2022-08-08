@@ -1,9 +1,11 @@
-const Conversations = () => {
+import { NextPage } from 'next'
+
+const ConversationsPage: NextPage = () => {
   return (
-    <div className="flex-1">
-      <h1>Conversations</h1>
+    <div className="flex-1 bg-discord-gray-300">
+      <h1>Conversations Page</h1>
     </div>
   )
 }
 
-export default Conversations
+export default ConversationsPage

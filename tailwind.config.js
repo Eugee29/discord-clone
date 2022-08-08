@@ -4,6 +4,7 @@ module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
+    './layouts/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     colors: {
@@ -17,8 +18,10 @@ module.exports = {
       yellow: colors.yellow,
       discord: {
         gray: {
+          50: '#96989D',
           100: '#42464d',
           200: '#40444B',
+          250: '#3C3F45',
           300: '#36393F',
           400: '#2F3136',
           500: '#32353B',

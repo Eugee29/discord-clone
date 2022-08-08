@@ -3,6 +3,6 @@ import { User } from './user.model'
 
 export interface Conversation {
   id: string
-  users: User[]
+  members: User[]
   messages: Message[]
 }
