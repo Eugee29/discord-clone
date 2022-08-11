@@ -18,8 +18,9 @@ module.exports = {
       yellow: colors.yellow,
       discord: {
         gray: {
+          10: '#DCDDDE',
           50: '#96989D',
-          100: '#42464d',
+          100: '#42464D',
           200: '#40444B',
           250: '#3C3F45',
           300: '#36393F',

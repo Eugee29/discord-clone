@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Conversation } from '../models/conversation.model'
 
 interface Props {
@@ -7,9 +8,17 @@ interface Props {
 }
 
 const ConversationPreview = ({ conversation }: Props) => {
+  const router = useRouter()
+
+  const isActive = router.query.conversationId === conversation.id
+
   return (
     <Link href={`/conversations/${conversation.id}`}>
-      <div className="flex gap-3 px-2 py-[3px] w-56 cursor-pointer rounded hover:bg-discord-gray-250">
+      <div
+        className={`group hover:bg-discord-gray-250 flex gap-3 px-2 py-[3px] w-56 rounded cursor-pointer ${
+          isActive ? 'bg-discord-gray-100' : ''
+        }`}
+      >
         <div className="h-9 w-9 rounded self-center p-0.5">
           <Image
             className="rounded-full"
@@ -17,10 +26,14 @@ const ConversationPreview = ({ conversation }: Props) => {
             width="100%"
             src={conversation.members[0].avatar}
             alt={conversation.members[0].username}
-          ></Image>
+          />
         </div>
         <div className="flex flex-col flex-1 justify-center">
-          <h1 className="text-discord-gray-50 leading-5 ">
+          <h1
+            className={`group-hover:text-discord-gray-10 ${
+              isActive ? 'text-white' : 'text-discord-gray-50'
+            }`}
+          >
             {conversation.members[0].username}
           </h1>
           {conversation.members.length > 2 && (
