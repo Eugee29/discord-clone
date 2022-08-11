@@ -1,15 +1,31 @@
-import { NextPage } from 'next'
-import { useRouter } from 'next/router'
+import { GetServerSideProps } from 'next'
+import MessageList from '../../components/MessageList'
+import { Conversation } from '../../models/conversation.model'
+import { conversationService } from '../../service/conversation.service'
 
-const ConversationPage: NextPage = () => {
-  const router = useRouter()
-  const { conversationId } = router.query
+interface Props {
+  conversation: Conversation
+}
+
+const ConversationPage = ({ conversation }: Props) => {
+  console.log(conversation)
 
   return (
-    <div className="flex-1  bg-discord-gray-300">
-      <h1>{conversationId}</h1>
-    </div>
+    <main className="flex-1  bg-discord-gray-300 p-4">
+      <MessageList messages={conversation.messages} />
+    </main>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { conversationId } = context.query as { conversationId: string }
+  const conversation = await conversationService.getById(conversationId)
+
+  return {
+    props: {
+      conversation,
+    },
+  }
 }
 
 export default ConversationPage

@@ -19,7 +19,7 @@ const ConversationPreview = ({ conversation }: Props) => {
           isActive ? 'bg-discord-gray-100' : ''
         }`}
       >
-        <div className="h-9 w-9 rounded self-center p-0.5">
+        <div className="h-9 w-9 self-center p-0.5">
           <Image
             className="rounded-full"
             height="100%"
