@@ -1,5 +1,6 @@
 import { Conversation } from '../models/conversation.model'
 import ConversationList from './ConversationList'
+import SidebarHeader from './SidebarHeader'
 
 interface Props {
   conversations: Conversation[] | null
@@ -7,13 +8,14 @@ interface Props {
 
 const Sidebar = ({ conversations }: Props) => {
   return (
-    <nav className="h-full w-fit p-2 bg-discord-gray-400">
-      <header className="p-2.5">
-        <h1 className="text-xs font-bold text-discord-gray-50 uppercase">
+    <nav className="flex flex-col h-full w-fit bg-discord-gray-400">
+      <SidebarHeader />
+      <div className="p-2">
+        <h1 className="text-xs font-bold text-discord-gray-50 uppercase p-2.5">
           Conversations
         </h1>
-      </header>
-      <ConversationList conversations={conversations} />
+        <ConversationList conversations={conversations} />
+      </div>
     </nav>
   )
 }

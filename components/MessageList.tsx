@@ -7,7 +7,7 @@ interface Props {
 
 const MessageList = ({ messages }: Props) => {
   return (
-    <ul className="flex flex-col gap-4">
+    <ul className="flex-1 flex flex-col gap-4 p-4">
       {messages.map((message) => (
         <li key={message.id}>
           <MessagePreview message={message} />
