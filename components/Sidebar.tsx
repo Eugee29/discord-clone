@@ -1,12 +1,21 @@
+import { useEffect, useState } from 'react'
 import { Conversation } from '../models/conversation.model'
+import { conversationService } from '../service/conversation.service'
 import ConversationList from './ConversationList'
 import SidebarHeader from './SidebarHeader'
 
-interface Props {
-  conversations: Conversation[] | null
-}
+const Sidebar = () => {
+  const [conversations, setConversations] = useState<Conversation[] | null>(
+    null
+  )
 
-const Sidebar = ({ conversations }: Props) => {
+  useEffect(() => {
+    ;(async () => {
+      const conversations = await conversationService.query()
+      setConversations(conversations)
+    })()
+  }, [])
+
   return (
     <nav className="flex flex-col h-full w-fit bg-discord-gray-400">
       <SidebarHeader />

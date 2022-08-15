@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
-import { Conversation } from '../models/conversation.model'
-import { conversationService } from '../service/conversation.service'
+import { useRouter } from 'next/router'
 import Sidebar from '../components/Sidebar'
 
 interface Props {
@@ -8,20 +6,13 @@ interface Props {
 }
 
 const Layout = ({ children }: Props) => {
-  const [conversations, setConversations] = useState<Conversation[] | null>(
-    null
-  )
+  const router = useRouter()
 
-  useEffect(() => {
-    ;(async () => {
-      const conversations = await conversationService.query()
-      setConversations(conversations)
-    })()
-  }, [])
+  const isSidebarVisible = router.pathname.includes('conversation') // Only show sidebar on conversation pages
 
   return (
     <div className="h-screen w-screen flex">
-      <Sidebar conversations={conversations} />
+      {isSidebarVisible && <Sidebar />}
       {children}
     </div>
   )
