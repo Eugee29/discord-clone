@@ -1,6 +1,5 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import '../src/config/firebase.config'
 import Layout from '../layouts/Layout'
 
 function MyApp({ Component, pageProps }: AppProps) {

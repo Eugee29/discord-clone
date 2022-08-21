@@ -8,14 +8,14 @@ module.exports = {
   ],
   theme: {
     colors: {
-      transparent: 'transparent',
-      current: 'currentColor',
-      black: colors.black,
-      white: colors.white,
-      gray: colors.gray,
-      emerald: colors.emerald,
-      indigo: colors.indigo,
-      yellow: colors.yellow,
+      // transparent: 'transparent',
+      // current: 'currentColor',
+      // black: colors.black,
+      // white: colors.white,
+      // gray: colors.gray,
+      // emerald: colors.emerald,
+      // indigo: colors.indigo,
+      // yellow: colors.yellow,
       discord: {
         gray: {
           10: '#DCDDDE',
@@ -35,9 +35,12 @@ module.exports = {
           200: '#5865F2',
           250: '#4752C4',
         },
+        red: {
+          100: '#F38688',
+        },
       },
     },
-    extend: {},
+    extend: { colors },
   },
   plugins: [],
 }
