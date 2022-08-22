@@ -2,14 +2,17 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from 'firebase/auth'
 import { auth } from '../firebase.config'
 
 export const authService = { signup, login, logout, getCurrentUser }
 
-async function signup(email: string, password: string) {
+async function signup(email: string, password: string, username: string) {
   try {
     await createUserWithEmailAndPassword(auth, email, password)
+    if (auth.currentUser)
+      updateProfile(auth.currentUser, { displayName: username })
   } catch (error) {
     throw error
   }

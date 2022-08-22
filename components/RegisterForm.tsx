@@ -1,20 +1,24 @@
 import { useFormik } from 'formik'
-import * as yup from 'yup'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import { useState } from 'react'
+import * as yup from 'yup'
 import DiscordInput from './DiscordInput'
-import { authService } from '../service/auth.service'
 
 interface Props {
-  onLogin: (username: string, password: string) => Promise<void>
+  onRegister: (
+    email: string,
+    password: string,
+    username: string
+  ) => Promise<void>
 }
 
-const LoginForm = ({ onLogin }: Props) => {
+const RegisterForm = ({ onRegister }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const formik = useFormik({
     initialValues: {
       email: '',
+      username: '',
       password: '',
     },
     validationSchema: yup.object().shape({
@@ -22,22 +26,21 @@ const LoginForm = ({ onLogin }: Props) => {
         .string()
         .email('Not a well formed email address')
         .required('This field is required'),
-      password: yup.string().required('This field is required'),
+      username: yup.string().required('This field is required'),
+      password: yup
+        .string()
+        .min(8, 'Must be at least 8 characters long')
+        .required('This field is required'),
     }),
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async (values) => {
       setIsSubmitting(true)
       try {
-        await onLogin(values.email, values.password)
+        await onRegister(values.email, values.password, values.username)
       } catch (error: any) {
-        if (
-          error.code === 'auth/wrong-password' ||
-          error.code === 'auth/user-not-found'
-        ) {
-          const errorMessage = 'Invalid email or password'
-          formik.errors.email = errorMessage
-          formik.errors.password = errorMessage
+        if (error.code === 'auth/email-already-in-use') {
+          formik.errors.email = 'Email is already registered'
         }
       } finally {
         setIsSubmitting(false)
@@ -52,11 +55,8 @@ const LoginForm = ({ onLogin }: Props) => {
     >
       <div className="mb-5">
         <h1 className="text-white text-2xl font-semibold text-center mb-2">
-          Welcome back!
+          Create an account
         </h1>
-        <h2 className="text-discord-gray-20 text-center">
-          We're so excited to see you again!
-        </h2>
       </div>
       <div className="flex flex-col gap-5 mb-5">
         <DiscordInput
@@ -66,6 +66,15 @@ const LoginForm = ({ onLogin }: Props) => {
           autoComplete="email"
           value={formik.values.email}
           error={formik.errors.email}
+          onChange={formik.handleChange}
+        />
+        <DiscordInput
+          type="username"
+          name="username"
+          label="Username"
+          autoComplete="username"
+          value={formik.values.username}
+          error={formik.errors.username}
           onChange={formik.handleChange}
         />
         <DiscordInput
@@ -83,16 +92,15 @@ const LoginForm = ({ onLogin }: Props) => {
         type="submit"
         disabled={isSubmitting}
       >
-        Log In
+        Register
       </button>
-      <h3 className="text-sm text-discord-gray-60">
-        Need an account?{' '}
-        <Link href="/register">
-          <a className="text-discord-blue-100">Register</a>
-        </Link>
-      </h3>
+      <Link href="/login">
+        <a className="text-sm text-discord-blue-100">
+          Already have an account?
+        </a>
+      </Link>
     </form>
   )
 }
 
-export default LoginForm
+export default RegisterForm
