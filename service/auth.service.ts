@@ -1,18 +1,22 @@
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
 } from 'firebase/auth'
 import { auth } from '../firebase.config'
+import { userService } from './user.service'
 
 export const authService = { signup, login, logout, getCurrentUser }
 
 async function signup(email: string, password: string, username: string) {
   try {
     await createUserWithEmailAndPassword(auth, email, password)
-    if (auth.currentUser)
+    if (auth.currentUser) {
       updateProfile(auth.currentUser, { displayName: username })
+      userService.addUser(auth.currentUser)
+    }
   } catch (error) {
     throw error
   }
@@ -34,6 +38,10 @@ async function logout() {
   }
 }
 
-function getCurrentUser() {
-  return auth.currentUser
+async function getCurrentUser() {
+  return new Promise((resolve) => {
+    onAuthStateChanged(auth, (user) => {
+      resolve(user)
+    })
+  })
 }

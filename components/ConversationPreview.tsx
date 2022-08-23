@@ -15,7 +15,7 @@ const ConversationPreview = ({ conversation }: Props) => {
   return (
     <Link href={`/conversations/${conversation.id}`}>
       <div
-        className={`group hover:bg-discord-gray-250 flex gap-3 px-2 py-[3px] w-56 rounded cursor-pointer ${
+        className={`group hover:bg-discord-gray-250 flex gap-3 px-2 py-[3px] rounded cursor-pointer ${
           isActive ? 'bg-discord-gray-100' : ''
         }`}
       >

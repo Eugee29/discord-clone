@@ -3,7 +3,6 @@ import * as yup from 'yup'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import DiscordInput from './DiscordInput'
-import { authService } from '../service/auth.service'
 
 interface Props {
   onLogin: (username: string, password: string) => Promise<void>

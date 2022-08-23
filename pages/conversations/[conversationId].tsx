@@ -1,6 +1,8 @@
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
+import { ReactNode } from 'react'
 import ConversationHeader from '../../components/ConversationHeader'
 import MessageList from '../../components/MessageList'
+import Layout from '../../layouts/Layout'
 import { Conversation } from '../../models/conversation.model'
 import { conversationService } from '../../service/conversation.service'
 
@@ -26,6 +28,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       conversation,
     },
   }
+}
+
+ConversationPage.getLayout = function getLayout(page: ReactNode) {
+  return <Layout>{page}</Layout>
 }
 
 export default ConversationPage

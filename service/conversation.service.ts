@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { log } from 'console'
 import { Conversation } from '../models/conversation.model'
 
 export const conversationService = { query, getById }

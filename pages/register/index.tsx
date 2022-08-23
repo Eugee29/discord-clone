@@ -19,7 +19,7 @@ const RegisterPage = () => {
   }
 
   return (
-    <main className="flex-1 flex items-center justify-center bg-discord-blue-200">
+    <main className="h-full flex items-center justify-center bg-discord-blue-200">
       <RegisterForm onRegister={onRegister} />
     </main>
   )
