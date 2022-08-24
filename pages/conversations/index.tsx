@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 import Layout from '../../layouts/Layout'
 import { conversationService } from '../../service/conversation.service'
 
-const ConversationsPage = ({ conversations }: any) => {
+const ConversationsPage = () => {
   return (
     <div className="flex-1 bg-discord-gray-300">
       <h1>Conversations Page</h1>

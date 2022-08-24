@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Conversation } from '../models/conversation.model'
+import { ConversationPreviewModel } from '../models/conversation-preview.model'
 
 interface Props {
-  conversation: Conversation
+  conversation: ConversationPreviewModel
 }
 
 const ConversationPreview = ({ conversation }: Props) => {
@@ -13,7 +13,7 @@ const ConversationPreview = ({ conversation }: Props) => {
   const isActive = router.query.conversationId === conversation.id
 
   return (
-    <Link href={`/conversations/${conversation.id}`}>
+    <Link href={`/conversations/${conversation.id}`} shallow={false}>
       <div
         className={`group hover:bg-discord-gray-250 flex gap-3 px-2 py-[3px] rounded cursor-pointer ${
           isActive ? 'bg-discord-gray-100' : ''

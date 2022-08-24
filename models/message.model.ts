@@ -1,8 +1,8 @@
-import { User } from './user.model'
+import { UserPreview } from './user-preview.model'
 
 export interface Message {
   id: string
   content: string
-  user: User
+  user: UserPreview
   sentAt: EpochTimeStamp
 }

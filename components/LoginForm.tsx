@@ -54,7 +54,7 @@ const LoginForm = ({ onLogin }: Props) => {
           Welcome back!
         </h1>
         <h2 className="text-discord-gray-20 text-center">
-          We're so excited to see you again!
+          {`We're so excited to see you again!`}
         </h2>
       </div>
       <div className="flex flex-col gap-5 mb-5">

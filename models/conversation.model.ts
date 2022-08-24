@@ -1,8 +1,6 @@
+import { ConversationPreviewModel } from './conversation-preview.model'
 import { Message } from './message.model'
-import { User } from './user.model'
 
-export interface Conversation {
-  id: string
-  members: User[]
+export interface Conversation extends ConversationPreviewModel {
   messages: Message[]
 }

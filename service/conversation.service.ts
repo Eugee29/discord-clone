@@ -1,27 +1,40 @@
-import axios from 'axios'
-import { log } from 'console'
 import { Conversation } from '../models/conversation.model'
+import { dbService } from './db.service'
 
-export const conversationService = { query, getById }
+export const conversationService = { getConversation }
 
-const BASE_URL = process.env.production
-  ? 'api/conversation'
-  : 'http://localhost:3000/api/conversation'
+const COLLECTION = 'conversations'
 
-async function query(): Promise<Conversation[]> {
-  try {
-    const { data } = await axios.get(BASE_URL)
-    return data
-  } catch (error) {
-    throw error
-  }
+// const BASE_URL = process.env.production
+//   ? 'api/conversation'
+//   : 'http://localhost:3000/api/conversation'
+
+// async function query(): Promise<Conversation[]> {
+//   try {
+//     const { data } = await axios.get(BASE_URL)
+//     return data
+//   } catch (error) {
+//     throw error
+//   }
+// }
+
+// async function getById(id: string): Promise<Conversation> {
+//   try {
+//     const { data } = await axios.get(`${BASE_URL}/${id}`)
+//     return data
+//   } catch (error) {
+//     throw error
+//   }
+// }
+
+async function getConversation(conversationId: string): Promise<Conversation> {
+  const conversation = await dbService.getItem(COLLECTION, conversationId)
+  return conversation as Conversation
 }
 
-async function getById(id: string): Promise<Conversation> {
-  try {
-    const { data } = await axios.get(`${BASE_URL}/${id}`)
-    return data
-  } catch (error) {
-    throw error
-  }
-}
+// async function getUserConversations(userId: string) {
+//   const q = query(
+//     conversationsRef,
+//     where(userId, 'in', [['west_coast', 'east_coast']])
+//   )
+// }

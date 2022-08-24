@@ -1,8 +1,9 @@
+import { ConversationPreviewModel } from '../models/conversation-preview.model'
 import { Conversation } from '../models/conversation.model'
 import ConversationPreview from './ConversationPreview'
 
 interface Props {
-  conversations: Conversation[] | null
+  conversations: ConversationPreviewModel[] | null
 }
 
 const ConversationList = ({ conversations }: Props) => {

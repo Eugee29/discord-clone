@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
+  User,
 } from 'firebase/auth'
 import { auth } from '../firebase.config'
 import { userService } from './user.service'
@@ -38,7 +39,7 @@ async function logout() {
   }
 }
 
-async function getCurrentUser() {
+async function getCurrentUser(): Promise<User | null> {
   return new Promise((resolve) => {
     onAuthStateChanged(auth, (user) => {
       resolve(user)

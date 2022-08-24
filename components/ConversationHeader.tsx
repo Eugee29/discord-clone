@@ -1,8 +1,8 @@
-import { User } from '../models/user.model'
+import { UserPreview } from '../models/user-preview.model'
 import { SiMaildotru } from 'react-icons/si'
 
 interface Props {
-  members: User[]
+  members: UserPreview[]
 }
 
 const ConversationHeader = ({ members }: Props) => {
