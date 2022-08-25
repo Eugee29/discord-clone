@@ -31,10 +31,3 @@ async function getConversation(conversationId: string): Promise<Conversation> {
   const conversation = await dbService.getItem(COLLECTION, conversationId)
   return conversation as Conversation
 }
-
-// async function getUserConversations(userId: string) {
-//   const q = query(
-//     conversationsRef,
-//     where(userId, 'in', [['west_coast', 'east_coast']])
-//   )
-// }

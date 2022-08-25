@@ -13,7 +13,7 @@ const ConversationPreview = ({ conversation }: Props) => {
   const isActive = router.query.conversationId === conversation.id
 
   return (
-    <Link href={`/conversations/${conversation.id}`} shallow={false}>
+    <Link href={`/conversations/${conversation.id}`}>
       <div
         className={`group hover:bg-discord-gray-250 flex gap-3 px-2 py-[3px] rounded cursor-pointer ${
           isActive ? 'bg-discord-gray-100' : ''
@@ -24,8 +24,8 @@ const ConversationPreview = ({ conversation }: Props) => {
             className="rounded-full"
             height="100%"
             width="100%"
-            src={conversation.members[0].avatar}
-            alt={conversation.members[0].username}
+            src={conversation.members[0].photoURL}
+            alt={conversation.members[0].displayName}
           />
         </div>
         <div className="flex flex-col flex-1 justify-center">
@@ -34,12 +34,12 @@ const ConversationPreview = ({ conversation }: Props) => {
               isActive ? 'text-white' : 'text-discord-gray-50'
             }`}
           >
-            {conversation.members[0].username}
+            {conversation.members[0].displayName}
           </h1>
           {conversation.members.length > 2 && (
-            <small className="text-xs text-discord-gray-50 leading-4">
+            <h2 className="text-xs text-discord-gray-50 leading-4">
               {conversation.members.length} Members
-            </small>
+            </h2>
           )}
         </div>
       </div>

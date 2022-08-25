@@ -11,11 +11,11 @@ import { userService } from './user.service'
 
 export const authService = { signup, login, logout, getCurrentUser }
 
-async function signup(email: string, password: string, username: string) {
+async function signup(email: string, password: string, displayName: string) {
   try {
     await createUserWithEmailAndPassword(auth, email, password)
     if (auth.currentUser) {
-      updateProfile(auth.currentUser, { displayName: username })
+      await updateProfile(auth.currentUser, { displayName })
       userService.addUser(auth.currentUser)
     }
   } catch (error) {
@@ -46,3 +46,4 @@ async function getCurrentUser(): Promise<User | null> {
     })
   })
 }
+async function getUsers() {}

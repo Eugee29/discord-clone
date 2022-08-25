@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import Sidebar from '../components/Sidebar'
-import { ConversationPreviewModel } from '../models/conversation-preview.model'
+import { Conversation } from '../models/conversation.model'
+
 import { authService } from '../service/auth.service'
 import { userService } from '../service/user.service'
 
@@ -10,9 +11,9 @@ interface Props {
 }
 
 const Layout = ({ children }: Props) => {
-  const [conversations, setConversations] = useState<
-    null | ConversationPreviewModel[]
-  >(null)
+  const [conversations, setConversations] = useState<null | Conversation[]>(
+    null
+  )
 
   const router = useRouter()
 

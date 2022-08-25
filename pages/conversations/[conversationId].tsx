@@ -1,6 +1,7 @@
 // import { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { ReactNode, useEffect, useState } from 'react'
+import { SiMaildotru } from 'react-icons/si'
 import ConversationHeader from '../../components/ConversationHeader'
 import MessageList from '../../components/MessageList'
 import Layout from '../../layouts/Layout'
@@ -29,7 +30,15 @@ const ConversationPage = (/*{ conversation }: Props*/) => {
     <main className="flex-1 flex flex-col bg-discord-gray-300">
       {conversation ? (
         <>
-          <ConversationHeader members={conversation.members} />
+          <ConversationHeader>
+            <SiMaildotru
+              aria-label="@"
+              className="w-5 h-5 text-discord-gray-50"
+            />
+            <h1 className="text-white">
+              {conversation.members[0].displayName}
+            </h1>
+          </ConversationHeader>
           <MessageList messages={conversation.messages} />
         </>
       ) : (

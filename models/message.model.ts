@@ -1,8 +1,8 @@
-import { UserPreview } from './user-preview.model'
+import { DiscordUser } from './discord-user.model'
 
 export interface Message {
   id: string
   content: string
-  user: UserPreview
+  user: DiscordUser
   sentAt: EpochTimeStamp
 }
