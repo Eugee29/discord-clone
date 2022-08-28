@@ -1,8 +1,11 @@
 import { useRouter } from 'next/router'
 import RegisterForm from '../../components/RegisterForm'
+import { useUser } from '../../context/UserContext'
 import { authService } from '../../service/auth.service'
+import { userService } from '../../service/user.service'
 
 const RegisterPage = () => {
+  const { setUser } = useUser()
   const router = useRouter()
 
   const onRegister = async (
@@ -11,7 +14,8 @@ const RegisterPage = () => {
     username: string
   ) => {
     try {
-      await authService.signup(email, password, username)
+      const user = await authService.signup(email, password, username)
+      setUser(await userService.getUser(user.user.uid))
       router.push('/conversations')
     } catch (error: any) {
       throw error

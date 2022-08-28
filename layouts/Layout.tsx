@@ -1,34 +1,23 @@
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Sidebar from '../components/Sidebar'
-import { Conversation } from '../models/conversation.model'
-
-import { authService } from '../service/auth.service'
-import { userService } from '../service/user.service'
+import { useUser } from '../context/UserContext'
 
 interface Props {
   children: React.ReactNode
 }
 
 const Layout = ({ children }: Props) => {
-  const [conversations, setConversations] = useState<null | Conversation[]>(
-    null
-  )
-
+  const { user } = useUser()
   const router = useRouter()
 
   useEffect(() => {
-    ;(async () => {
-      const currentUser = await authService.getCurrentUser()
-      if (!currentUser) return router.push('/login')
-      const user = await userService.getUser(currentUser.uid)
-      setConversations(user?.conversations)
-    })()
-  }, [])
+    if (user === null) router.push('/login')
+  }, [user])
 
   return (
     <div className="h-full w-full flex">
-      <Sidebar conversations={conversations} />
+      <Sidebar conversations={user?.conversations || []} />
       {children}
     </div>
   )

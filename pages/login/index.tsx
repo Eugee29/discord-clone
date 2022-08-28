@@ -1,14 +1,18 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import LoginForm from '../../components/LoginForm'
+import { useUser } from '../../context/UserContext'
 import { authService } from '../../service/auth.service'
+import { userService } from '../../service/user.service'
 
 const LoginPage: NextPage = () => {
+  const { setUser } = useUser()
   const router = useRouter()
 
   const onLogin = async (username: string, password: string) => {
     try {
-      await authService.login(username, password)
+      const user = await authService.login(username, password)
+      setUser(await userService.getUser(user.user.uid))
       router.push('/conversations')
     } catch (error: any) {
       throw error

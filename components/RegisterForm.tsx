@@ -16,6 +16,7 @@ const RegisterForm = ({ onRegister }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const formik = useFormik({
+    initialErrors: {},
     initialValues: {
       email: '',
       username: '',
@@ -39,11 +40,10 @@ const RegisterForm = ({ onRegister }: Props) => {
       try {
         await onRegister(values.email, values.password, values.username)
       } catch (error: any) {
+        setIsSubmitting(false)
         if (error.code === 'auth/email-already-in-use') {
           formik.errors.email = 'Email is already registered'
         }
-      } finally {
-        setIsSubmitting(false)
       }
     },
   })

@@ -13,11 +13,12 @@ export const authService = { signup, login, logout, getCurrentUser }
 
 async function signup(email: string, password: string, displayName: string) {
   try {
-    await createUserWithEmailAndPassword(auth, email, password)
+    const user = await createUserWithEmailAndPassword(auth, email, password)
     if (auth.currentUser) {
       await updateProfile(auth.currentUser, { displayName })
       userService.addUser(auth.currentUser)
     }
+    return user
   } catch (error) {
     throw error
   }
@@ -25,7 +26,8 @@ async function signup(email: string, password: string, displayName: string) {
 
 async function login(email: string, password: string) {
   try {
-    await signInWithEmailAndPassword(auth, email, password)
+    return await signInWithEmailAndPassword(auth, email, password)
+    // return auth.currentUser
   } catch (error) {
     throw error
   }

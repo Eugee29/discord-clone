@@ -12,6 +12,7 @@ const LoginForm = ({ onLogin }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const formik = useFormik({
+    initialErrors: {},
     initialValues: {
       email: '',
       password: '',
@@ -30,6 +31,7 @@ const LoginForm = ({ onLogin }: Props) => {
       try {
         await onLogin(values.email, values.password)
       } catch (error: any) {
+        setIsSubmitting(false)
         if (
           error.code === 'auth/wrong-password' ||
           error.code === 'auth/user-not-found'
@@ -38,8 +40,6 @@ const LoginForm = ({ onLogin }: Props) => {
           formik.errors.email = errorMessage
           formik.errors.password = errorMessage
         }
-      } finally {
-        setIsSubmitting(false)
       }
     },
   })
