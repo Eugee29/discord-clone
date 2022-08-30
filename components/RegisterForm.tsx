@@ -54,7 +54,7 @@ const RegisterForm = ({ onRegister }: Props) => {
       onSubmit={formik.handleSubmit}
     >
       <div className="mb-5">
-        <h1 className="text-white text-2xl font-semibold text-center mb-2">
+        <h1 className="text-white text-2xl font-ginto text-center mb-2">
           Create an account
         </h1>
       </div>

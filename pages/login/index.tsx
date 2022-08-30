@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import LoginForm from '../../components/LoginForm'
+import Meta from '../../components/Meta'
 import { useUser } from '../../context/UserContext'
 import { authService } from '../../service/auth.service'
 import { userService } from '../../service/user.service'

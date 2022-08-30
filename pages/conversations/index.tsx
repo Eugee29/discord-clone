@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from 'react'
+import { ReactNode } from 'react'
 import ConversationHeader from '../../components/ConversationHeader'
 import Layout from '../../layouts/Layout'
 import { BsFillPeopleFill } from 'react-icons/bs'
@@ -21,9 +21,9 @@ const ConversationsPage = ({ users }: Props) => {
         />
         <h1 className="text-white">People</h1>
       </ConversationHeader>
-      <div className="p-8">
+      {/* <div className="p-8">
         <UserList users={users} />
-      </div>
+      </div> */}
     </div>
   )
 }

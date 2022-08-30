@@ -50,7 +50,7 @@ const LoginForm = ({ onLogin }: Props) => {
       onSubmit={formik.handleSubmit}
     >
       <div className="mb-5">
-        <h1 className="text-white text-2xl font-semibold text-center mb-2">
+        <h1 className="text-white text-2xl font-semibold text-center mb-2 font-ginto">
           Welcome back!
         </h1>
         <h2 className="text-discord-gray-20 text-center">
@@ -84,7 +84,7 @@ const LoginForm = ({ onLogin }: Props) => {
       >
         Log In
       </button>
-      <h3 className="text-sm text-discord-gray-60">
+      <h3 className="text-sm text-discord-gray-30">
         Need an account?{' '}
         <Link href="/register">
           <a className="text-discord-blue-100">Register</a>

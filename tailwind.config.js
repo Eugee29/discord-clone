@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const colors = require('tailwindcss/colors')
+const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
@@ -7,12 +7,24 @@ module.exports = {
     './layouts/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
+    fontFamily: {
+      ginto: ['ABC Ginto Normal', ...defaultTheme.fontFamily.sans],
+    },
     extend: {
+      fontFamily: {
+        sans: ['Whitney', ...defaultTheme.fontFamily.sans],
+        // ['whitney-light']: [
+        //   'Whitney Light',
+        //   'Whitney Normal',
+        //   ...defaultTheme.fontFamily.sans,
+        // ],
+      },
       colors: {
         discord: {
           gray: {
             10: '#DCDDDE',
             20: '#B9BBBE',
+            30: '#A3A6AA',
             50: '#96989D',
             60: '#72767D',
             100: '#42464D',

@@ -4,6 +4,7 @@ import { ReactNode, useEffect, useState } from 'react'
 import { SiMaildotru } from 'react-icons/si'
 import ConversationHeader from '../../components/ConversationHeader'
 import MessageList from '../../components/MessageList'
+import Meta from '../../components/Meta'
 import Layout from '../../layouts/Layout'
 import { Conversation } from '../../models/conversation.model'
 import { conversationService } from '../../service/conversation.service'
@@ -26,25 +27,28 @@ const ConversationPage = (/*{ conversation }: Props*/) => {
     })()
   }, [router.query])
 
+  const conversationName = conversation?.members[0].displayName
+
   return (
-    <main className="flex-1 flex flex-col bg-discord-gray-300">
-      {conversation ? (
-        <>
-          <ConversationHeader>
-            <SiMaildotru
-              aria-label="@"
-              className="w-5 h-5 text-discord-gray-50"
-            />
-            <h1 className="text-white">
-              {conversation.members[0].displayName}
-            </h1>
-          </ConversationHeader>
-          <MessageList messages={conversation.messages} />
-        </>
-      ) : (
-        <h1>Loading...</h1>
-      )}
-    </main>
+    <>
+      <Meta title={conversationName} />
+      <main className="flex-1 flex flex-col bg-discord-gray-300">
+        {conversation ? (
+          <>
+            <ConversationHeader>
+              <SiMaildotru
+                aria-label="@"
+                className="w-5 h-5 text-discord-gray-50"
+              />
+              <h1 className="text-white">{conversationName}</h1>
+            </ConversationHeader>
+            <MessageList messages={conversation.messages} />
+          </>
+        ) : (
+          <h1>Loading...</h1>
+        )}
+      </main>
+    </>
   )
 }
 

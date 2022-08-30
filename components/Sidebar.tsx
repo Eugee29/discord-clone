@@ -15,7 +15,7 @@ const Sidebar = ({ conversations }: Props) => {
   const isActive = router.pathname === '/conversations'
 
   return (
-    <nav className="flex flex-col h-full w-60 bg-discord-gray-400 ">
+    <nav className="flex flex-col h-full basis-60 bg-discord-gray-400 ">
       <SidebarHeader />
       <div className="p-2">
         <Link href="/conversations">
@@ -43,8 +43,8 @@ const Sidebar = ({ conversations }: Props) => {
             </div>
           </div>
         </Link>
-        <h1 className="text-xs font-bold text-discord-gray-50 uppercase p-2.5">
-          Conversations
+        <h1 className="text-xs font-ginto text-discord-gray-50 uppercase p-2.5">
+          Direct messages
         </h1>
         <ConversationList conversations={conversations} />
       </div>
