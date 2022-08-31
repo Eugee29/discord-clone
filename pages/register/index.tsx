@@ -1,8 +1,9 @@
+import axios from 'axios'
+import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import RegisterForm from '../../components/RegisterForm'
 import { useUser } from '../../context/UserContext'
-import { authService } from '../../service/auth.service'
-import { userService } from '../../service/user.service'
+import { authService } from '../api/services/auth.service'
 
 const RegisterPage = () => {
   const { setUser } = useUser()
@@ -11,14 +12,19 @@ const RegisterPage = () => {
   const onRegister = async (
     email: string,
     password: string,
-    username: string
+    displayName: string
   ) => {
     try {
-      const user = await authService.signup(email, password, username)
-      setUser(await userService.getUser(user.user.uid))
+      const res = await axios.post('/api/auth/signup', {
+        email,
+        password,
+        displayName,
+      })
+      const user = res.data
+      setUser(user)
       router.push('/conversations')
     } catch (error: any) {
-      throw error
+      throw error.response.data
     }
   }
 
@@ -27,6 +33,13 @@ const RegisterPage = () => {
       <RegisterForm onRegister={onRegister} />
     </main>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const user = await authService.getCurrentUser()
+  if (user)
+    return { redirect: { permanent: false, destination: '/conversations' } }
+  return { props: {} }
 }
 
 export default RegisterPage

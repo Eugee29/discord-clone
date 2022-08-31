@@ -2,6 +2,7 @@ import { useFormik } from 'formik'
 import Link from 'next/link'
 import { useState } from 'react'
 import * as yup from 'yup'
+import DiscordButton from './DiscordButton'
 import DiscordInput from './DiscordInput'
 
 interface Props {
@@ -41,7 +42,7 @@ const RegisterForm = ({ onRegister }: Props) => {
         await onRegister(values.email, values.password, values.username)
       } catch (error: any) {
         setIsSubmitting(false)
-        if (error.code === 'auth/email-already-in-use') {
+        if (error === 'auth/email-already-in-use') {
           formik.errors.email = 'Email is already registered'
         }
       }
@@ -87,13 +88,7 @@ const RegisterForm = ({ onRegister }: Props) => {
           onChange={formik.handleChange}
         />
       </div>
-      <button
-        className="w-full mb-2 bg-discord-blue-200 p-[0.625em] text-white rounded transition-colors hover:bg-discord-blue-250 disabled:bg-discord-gray-60"
-        type="submit"
-        disabled={isSubmitting}
-      >
-        Register
-      </button>
+      <DiscordButton isLoading={isSubmitting}>Register</DiscordButton>
       <Link href="/login">
         <a className="text-sm text-discord-blue-100">
           Already have an account?

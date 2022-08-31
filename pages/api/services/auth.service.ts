@@ -6,7 +6,7 @@ import {
   updateProfile,
   User,
 } from 'firebase/auth'
-import { auth } from '../firebase.config'
+import { auth } from '../../../firebase.config'
 import { userService } from './user.service'
 
 export const authService = { signup, login, logout, getCurrentUser }
@@ -27,7 +27,6 @@ async function signup(email: string, password: string, displayName: string) {
 async function login(email: string, password: string) {
   try {
     return await signInWithEmailAndPassword(auth, email, password)
-    // return auth.currentUser
   } catch (error) {
     throw error
   }
@@ -48,4 +47,3 @@ async function getCurrentUser(): Promise<User | null> {
     })
   })
 }
-async function getUsers() {}

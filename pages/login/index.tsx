@@ -1,22 +1,22 @@
-import { NextPage } from 'next'
+import axios from 'axios'
+import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import LoginForm from '../../components/LoginForm'
-import Meta from '../../components/Meta'
 import { useUser } from '../../context/UserContext'
-import { authService } from '../../service/auth.service'
-import { userService } from '../../service/user.service'
+import { authService } from '../api/services/auth.service'
 
-const LoginPage: NextPage = () => {
+const LoginPage = () => {
   const { setUser } = useUser()
   const router = useRouter()
 
   const onLogin = async (username: string, password: string) => {
     try {
-      const user = await authService.login(username, password)
-      setUser(await userService.getUser(user.user.uid))
+      const res = await axios.post('/api/auth/login', { username, password })
+      const user = res.data
+      setUser(user)
       router.push('/conversations')
     } catch (error: any) {
-      throw error
+      throw error.response.data
     }
   }
 
@@ -25,6 +25,13 @@ const LoginPage: NextPage = () => {
       <LoginForm onLogin={onLogin} />
     </main>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const user = await authService.getCurrentUser()
+  if (user)
+    return { redirect: { permanent: false, destination: '/conversations' } }
+  return { props: {} }
 }
 
 export default LoginPage

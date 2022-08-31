@@ -1,31 +1,31 @@
-// import { GetServerSideProps, NextPage } from 'next'
-import { useRouter } from 'next/router'
-import { ReactNode, useEffect, useState } from 'react'
+import { GetServerSideProps } from 'next'
+import { ReactNode } from 'react'
 import { SiMaildotru } from 'react-icons/si'
 import ConversationHeader from '../../components/ConversationHeader'
 import MessageList from '../../components/MessageList'
 import Meta from '../../components/Meta'
 import Layout from '../../layouts/Layout'
 import { Conversation } from '../../models/conversation.model'
-import { conversationService } from '../../service/conversation.service'
+import { conversationService } from '../api/services/conversation.service'
+import { authService } from '../api/services/auth.service'
 
-// interface Props {
-//   conversation: Conversation
-// }
+interface Props {
+  conversation: Conversation
+}
 
-const ConversationPage = (/*{ conversation }: Props*/) => {
-  const [conversation, setConversations] = useState<null | Conversation>()
-  const router = useRouter()
+const ConversationPage = ({ conversation }: Props) => {
+  // const [conversation, setConversations] = useState<null | Conversation>()
+  // const router = useRouter()
 
-  useEffect(() => {
-    ;(async () => {
-      const { conversationId } = router.query
-      const conversations = await conversationService.getConversation(
-        conversationId as string
-      )
-      setConversations(conversations as Conversation)
-    })()
-  }, [router.query])
+  // useEffect(() => {
+  //   ;(async () => {
+  //     const { conversationId } = router.query
+  //     const conversations = await conversationService.getConversation(
+  //       conversationId as string
+  //     )
+  //     setConversations(conversations as Conversation)
+  //   })()
+  // }, [router.query])
 
   const conversationName = conversation?.members[0].displayName
 
@@ -56,17 +56,16 @@ ConversationPage.getLayout = function getLayout(page: ReactNode) {
   return <Layout>{page}</Layout>
 }
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const { conversationId } = context.query as { conversationId: string }
-//   const conversation = JSON.parse(
-//     JSON.stringify(await conversationService.getConversation(conversationId))
-//   )
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const user = await authService.getCurrentUser()
+  if (!user) return { redirect: { permanent: false, destination: '/login' } }
 
-//   return {
-//     props: {
-//       conversation,
-//     },
-//   }
-// }
+  const { conversationId } = context.query
+  const conversations = await conversationService.getConversation(
+    conversationId as string
+  )
+
+  return { props: { conversations } }
+}
 
 export default ConversationPage

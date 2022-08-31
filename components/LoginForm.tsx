@@ -3,6 +3,7 @@ import * as yup from 'yup'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import DiscordInput from './DiscordInput'
+import DiscordButton from './DiscordButton'
 
 interface Props {
   onLogin: (username: string, password: string) => Promise<void>
@@ -32,14 +33,16 @@ const LoginForm = ({ onLogin }: Props) => {
         await onLogin(values.email, values.password)
       } catch (error: any) {
         setIsSubmitting(false)
+        let errorMessage
         if (
-          error.code === 'auth/wrong-password' ||
-          error.code === 'auth/user-not-found'
+          error === 'auth/wrong-password' ||
+          error === 'auth/user-not-found'
         ) {
-          const errorMessage = 'Invalid email or password'
-          formik.errors.email = errorMessage
-          formik.errors.password = errorMessage
-        }
+          errorMessage = 'Invalid email or password'
+        } else if (error === 'auth/too-many-requests')
+          errorMessage = 'Too many requests, slow down'
+        formik.errors.email = errorMessage
+        formik.errors.password = errorMessage
       }
     },
   })
@@ -77,13 +80,7 @@ const LoginForm = ({ onLogin }: Props) => {
           onChange={formik.handleChange}
         />
       </div>
-      <button
-        className="w-full mb-2 bg-discord-blue-200 p-[0.625em] text-white rounded transition-colors hover:bg-discord-blue-250 disabled:bg-discord-gray-60"
-        type="submit"
-        disabled={isSubmitting}
-      >
-        Log In
-      </button>
+      <DiscordButton isLoading={isSubmitting}>Log In</DiscordButton>
       <h3 className="text-sm text-discord-gray-30">
         Need an account?{' '}
         <Link href="/register">

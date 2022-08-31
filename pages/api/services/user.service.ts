@@ -1,5 +1,5 @@
 import { User } from 'firebase/auth'
-import { DiscordUser } from '../models/discord-user.model'
+import { DiscordUser } from '../../../models/discord-user.model'
 
 import { dbService } from './db.service'
 

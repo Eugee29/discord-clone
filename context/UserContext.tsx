@@ -1,3 +1,4 @@
+import axios from 'axios'
 import {
   createContext,
   Dispatch,
@@ -8,8 +9,6 @@ import {
   useState,
 } from 'react'
 import { DiscordUser } from '../models/discord-user.model'
-import { authService } from '../service/auth.service'
-import { userService } from '../service/user.service'
 
 const UserContext = createContext<{
   user: DiscordUser | null | undefined
@@ -25,14 +24,11 @@ export const UserProvider = ({ children }: Props) => {
 
   useEffect(() => {
     ;(async () => {
-      const currentUser = await authService.getCurrentUser()
-      if (!currentUser) return setUser(null)
-      const user = await userService.getUser(currentUser.uid)
-      setUser(user)
+      const res = await axios.get('/api/auth')
+      const currentUser = res.data
+      setUser(currentUser || null)
     })()
   }, [])
-
-  // console.log(user)
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

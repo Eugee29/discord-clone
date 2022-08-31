@@ -2,10 +2,11 @@ import { ReactNode } from 'react'
 import ConversationHeader from '../../components/ConversationHeader'
 import Layout from '../../layouts/Layout'
 import { BsFillPeopleFill } from 'react-icons/bs'
-import { userService } from '../../service/user.service'
+import { userService } from '../api/services/user.service'
 import { GetServerSideProps } from 'next'
 import { DiscordUser } from '../../models/discord-user.model'
 import UserList from '../../components/UserList'
+import { authService } from '../api/services/auth.service'
 
 interface Props {
   users: DiscordUser[]
@@ -21,9 +22,9 @@ const ConversationsPage = ({ users }: Props) => {
         />
         <h1 className="text-white">People</h1>
       </ConversationHeader>
-      {/* <div className="p-8">
+      <div className="p-8">
         <UserList users={users} />
-      </div> */}
+      </div>
     </div>
   )
 }
@@ -33,6 +34,8 @@ ConversationsPage.getLayout = function getLayout(page: ReactNode) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
+  const user = await authService.getCurrentUser()
+  if (!user) return { redirect: { permanent: false, destination: '/login' } }
   const users = JSON.parse(JSON.stringify(await userService.getAllUsers()))
   return { props: { users } }
 }
