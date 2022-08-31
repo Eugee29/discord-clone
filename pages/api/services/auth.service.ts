@@ -6,7 +6,7 @@ import {
   updateProfile,
   User,
 } from 'firebase/auth'
-import { auth } from '../../../firebase.config'
+import { auth } from '../firebase.config'
 import { userService } from './user.service'
 
 export const authService = { signup, login, logout, getCurrentUser }

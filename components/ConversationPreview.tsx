@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { ConversationPreviewModel } from '../models/conversation-preview.model'
+import { Conversation } from '../models/conversation.model'
 
 interface Props {
-  conversation: ConversationPreviewModel
+  conversation: Conversation
 }
 
 const ConversationPreview = ({ conversation }: Props) => {

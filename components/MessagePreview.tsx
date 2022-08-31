@@ -15,13 +15,13 @@ const MessagePreview = ({ message }: Props) => {
           className="rounded-full"
           width="100%"
           height="100%"
-          src={message.user.avatar}
-          alt={message.user.username}
+          src={message.user.photoURL}
+          alt={message.user.displayName}
         />
       </div>
       <div className="leading-snug flex-1">
         <h1 className="text-white ">
-          {message.user.username}
+          {message.user.displayName}
           <span className="text-xs text-discord-gray-50">
             &nbsp;&nbsp;{sentAtDate}
           </span>
