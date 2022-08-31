@@ -14,6 +14,8 @@ const LoginPage = () => {
       const res = await axios.post('/api/auth/login', { username, password })
       const user = res.data
       setUser(user)
+      const currUser = await authService.getCurrentUser()
+      console.log(currUser)
       router.push('/conversations')
     } catch (error: any) {
       throw error.response.data

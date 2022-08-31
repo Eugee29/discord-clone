@@ -3,7 +3,7 @@ import ConversationHeader from '../../components/ConversationHeader'
 import Layout from '../../layouts/Layout'
 import { BsFillPeopleFill } from 'react-icons/bs'
 import { userService } from '../api/services/user.service'
-import { GetServerSideProps, NextPage } from 'next'
+import { GetServerSideProps } from 'next'
 import { DiscordUser } from '../../models/discord-user.model'
 import UserList from '../../components/UserList'
 import { authService } from '../api/services/auth.service'
@@ -12,7 +12,7 @@ interface Props {
   users: DiscordUser[]
 }
 
-const ConversationsPage: NextPage<Props> = ({ users }) => {
+const ConversationsPage = ({ users }: Props) => {
   return (
     <div className="flex-1 bg-discord-gray-300">
       <ConversationHeader>
@@ -29,7 +29,6 @@ const ConversationsPage: NextPage<Props> = ({ users }) => {
   )
 }
 
-//@ts-ignore
 ConversationsPage.getLayout = function getLayout(page: ReactNode) {
   return <Layout>{page}</Layout>
 }
