@@ -26,8 +26,6 @@ export const UserProvider = ({ children }: Props) => {
     ;(async () => {
       const res = await axios.get('/api/auth')
       const currentUser = res.data
-      console.log(currentUser)
-
       setUser(currentUser || null)
     })()
   }, [])

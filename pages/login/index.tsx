@@ -10,12 +10,18 @@ const LoginPage = () => {
   const router = useRouter()
 
   const onLogin = async (username: string, password: string) => {
+    console.log('logging in')
+
     try {
       const res = await axios.post('/api/auth/login', { username, password })
       const user = res.data
       setUser(user)
+      console.log('log in successful')
+
       router.push('/conversations')
     } catch (error: any) {
+      console.log('error:', error)
+
       throw error.response.data
     }
   }
