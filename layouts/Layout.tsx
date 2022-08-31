@@ -12,7 +12,7 @@ const Layout = ({ children }: Props) => {
   const router = useRouter()
 
   useEffect(() => {
-    if (user === null) router.push('/login')
+    if (!user) router.push('/login')
   }, [user])
 
   return (
