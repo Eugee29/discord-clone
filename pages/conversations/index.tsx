@@ -34,10 +34,10 @@ ConversationsPage.getLayout = function getLayout(page: ReactNode) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const user = await authService.getCurrentUser()
-  if (!user) return { redirect: { permanent: false, destination: '/login' } }
-  // const users = JSON.parse(JSON.stringify(await userService.getAllUsers()))
-  return { props: { users: [] } }
+  // const user = await authService.getCurrentUser()
+  // if (!user) return { redirect: { permanent: false, destination: '/login' } }
+  const users = JSON.parse(JSON.stringify(await userService.getAllUsers()))
+  return { props: { users } }
 }
 
 export default ConversationsPage
