@@ -7,6 +7,7 @@ import { GetServerSideProps } from 'next'
 import { DiscordUser } from '../../models/discord-user.model'
 import UserList from '../../components/UserList'
 import { authService } from '../api/services/auth.service'
+import axios from 'axios'
 
 interface Props {
   users: DiscordUser[]
@@ -34,8 +35,9 @@ ConversationsPage.getLayout = function getLayout(page: ReactNode) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  // const user = await authService.getCurrentUser()
-  // if (!user) return { redirect: { permanent: false, destination: '/login' } }
+  const res = await axios.get('/api/auth')
+  const user = res.data
+  if (!user) return { redirect: { permanent: false, destination: '/login' } }
   const users = JSON.parse(JSON.stringify(await userService.getAllUsers()))
   return { props: { users } }
 }
