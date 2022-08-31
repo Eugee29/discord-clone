@@ -14,7 +14,7 @@ const LoginPage = () => {
       const res = await axios.post('/api/auth/login', { username, password })
       const user = res.data
       setUser(user)
-      router.push('/')
+      router.push('/conversations')
     } catch (error: any) {
       throw error.response.data
     }

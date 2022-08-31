@@ -12,7 +12,7 @@ interface Props {
   users: DiscordUser[]
 }
 
-const ConversationsPage = ({ users }: Props) => {
+const ConversationsPage = (/*{ users }: Props*/) => {
   return (
     <div className="flex-1 bg-discord-gray-300">
       <ConversationHeader>
@@ -22,9 +22,9 @@ const ConversationsPage = ({ users }: Props) => {
         />
         <h1 className="text-white">People</h1>
       </ConversationHeader>
-      <div className="p-8">
+      {/* <div className="p-8">
         <UserList users={users} />
-      </div>
+      </div> */}
     </div>
   )
 }
@@ -33,11 +33,11 @@ ConversationsPage.getLayout = function getLayout(page: ReactNode) {
   return <Layout>{page}</Layout>
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const user = await authService.getCurrentUser()
-  if (!user) return { redirect: { permanent: false, destination: '/login' } }
-  const users = JSON.parse(JSON.stringify(await userService.getAllUsers()))
-  return { props: { users } }
-}
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const user = await authService.getCurrentUser()
+//   if (!user) return { redirect: { permanent: false, destination: '/login' } }
+//   const users = JSON.parse(JSON.stringify(await userService.getAllUsers()))
+//   return { props: { users } }
+// }
 
 export default ConversationsPage
