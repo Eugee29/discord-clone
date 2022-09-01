@@ -4,9 +4,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
-  User,
 } from 'firebase/auth'
-import { DiscordUser } from '../../../models/discord-user.model'
+import { DiscordUser } from '../models/discord-user.model'
 import { auth } from '../firebase.config'
 import { userService } from './user.service'
 
@@ -14,7 +13,6 @@ export const authService = {
   register,
   login,
   logout,
-  // getCurrentUser,
   onUserChange,
 }
 
@@ -47,14 +45,6 @@ async function logout() {
     throw error
   }
 }
-
-// async function getCurrentUser(): Promise<User | null> {
-//   return new Promise((resolve) => {
-//     onAuthStateChanged(auth, (user) => {
-//       resolve(user)
-//     })
-//   })
-// }
 
 async function onUserChange(
   setUser: (user: DiscordUser | null | undefined) => void

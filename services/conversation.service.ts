@@ -1,4 +1,4 @@
-import { Conversation } from '../../../models/conversation.model'
+import { Conversation } from '../models/conversation.model'
 import { dbService } from './db.service'
 
 export const conversationService = { getConversation }
