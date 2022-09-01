@@ -15,8 +15,10 @@ const Layout = ({ children }: Props) => {
     if (user === null) router.push('/login')
   }, [user])
 
+  if (!user) return <div className="h-full bg-discord-gray-300" />
+
   return (
-    <div className="h-full w-full flex">
+    <div className="h-full flex">
       <Sidebar conversations={user?.conversations || []} />
       {children}
     </div>

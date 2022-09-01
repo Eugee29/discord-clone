@@ -21,6 +21,8 @@ async function addUser(user: User) {
 }
 
 async function getUser(userId: string): Promise<DiscordUser> {
+  console.log('getting user')
+
   const user = await dbService.getItem(COLLECTION, userId)
   return user as DiscordUser
 }

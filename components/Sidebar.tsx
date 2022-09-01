@@ -4,6 +4,7 @@ import { BsFillPeopleFill } from 'react-icons/bs'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Conversation } from '../models/conversation.model'
+import { authService } from '../pages/api/services/auth.service'
 
 interface Props {
   conversations: Conversation[] | null
@@ -48,6 +49,7 @@ const Sidebar = ({ conversations }: Props) => {
         </h1>
         <ConversationList conversations={conversations} />
       </div>
+      <button onClick={async () => await authService.logout()}>Log out</button>
     </nav>
   )
 }

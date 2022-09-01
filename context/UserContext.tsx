@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { onAuthStateChanged, User } from 'firebase/auth'
 import {
   createContext,
   Dispatch,
@@ -9,6 +10,8 @@ import {
   useState,
 } from 'react'
 import { DiscordUser } from '../models/discord-user.model'
+import { auth } from '../pages/api/firebase.config'
+import { authService } from '../pages/api/services/auth.service'
 
 const UserContext = createContext<{
   user: DiscordUser | null | undefined
@@ -23,10 +26,18 @@ export const UserProvider = ({ children }: Props) => {
   const [user, setUser] = useState<DiscordUser | null>()
 
   useEffect(() => {
+    // const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    //   if (!user) return setUser(null)
+    //   setUser(user)
+    // })
+    // return () => unsubscribe()
     ;(async () => {
-      const res = await axios.get('/api/auth')
-      const currentUser = res.data
-      setUser(currentUser || null)
+      // const res = await axios.get('/api/auth')
+      // const currentUser = res.data
+      // setUser(currentUser || null)
+
+      const unsubscribe = await authService.onUserChange(setUser)
+      return () => unsubscribe()
     })()
   }, [])
 

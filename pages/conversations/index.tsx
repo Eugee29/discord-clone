@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 import ConversationHeader from '../../components/ConversationHeader'
 import Layout from '../../layouts/Layout'
 import { BsFillPeopleFill } from 'react-icons/bs'
@@ -9,13 +9,25 @@ import UserList from '../../components/UserList'
 import { authService } from '../api/services/auth.service'
 import axios from 'axios'
 import { useUser } from '../../context/UserContext'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
+import { auth } from '../api/firebase.config'
 
 interface Props {
   users: DiscordUser[]
 }
 
 const ConversationsPage = ({ users }: Props) => {
+  const router = useRouter()
+  const { user } = useUser()
+
+  // if (!auth.currentUser) router.push('/login')
+
+  // useEffect(() => {
+  //   if (user === null) router.push('/login')
+  // }, [user])
+
+  // if (!user) return <div className="flex-1 bg-discord-gray-300" />
+
   return (
     <div className="flex-1 bg-discord-gray-300">
       <ConversationHeader>
@@ -37,11 +49,7 @@ ConversationsPage.getLayout = function getLayout(page: ReactNode) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  // console.log('GETTING CURR USER')
   // const user = await authService.getCurrentUser()
-
-  // console.log(user)
-
   // if (!user) return { redirect: { permanent: false, destination: '/login' } }
   const users = JSON.parse(JSON.stringify(await userService.getAllUsers()))
   return { props: { users } }

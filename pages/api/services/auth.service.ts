@@ -6,12 +6,19 @@ import {
   updateProfile,
   User,
 } from 'firebase/auth'
+import { DiscordUser } from '../../../models/discord-user.model'
 import { auth } from '../firebase.config'
 import { userService } from './user.service'
 
-export const authService = { signup, login, logout, getCurrentUser }
+export const authService = {
+  register,
+  login,
+  logout,
+  // getCurrentUser,
+  onUserChange,
+}
 
-async function signup(email: string, password: string, displayName: string) {
+async function register(email: string, password: string, displayName: string) {
   try {
     const user = await createUserWithEmailAndPassword(auth, email, password)
     if (auth.currentUser) {
@@ -26,7 +33,8 @@ async function signup(email: string, password: string, displayName: string) {
 
 async function login(email: string, password: string) {
   try {
-    return await signInWithEmailAndPassword(auth, email, password)
+    const user = await signInWithEmailAndPassword(auth, email, password)
+    return user
   } catch (error) {
     throw error
   }
@@ -40,10 +48,21 @@ async function logout() {
   }
 }
 
-async function getCurrentUser(): Promise<User | null> {
-  return new Promise((resolve) => {
-    onAuthStateChanged(auth, (user) => {
-      resolve(user)
-    })
+// async function getCurrentUser(): Promise<User | null> {
+//   return new Promise((resolve) => {
+//     onAuthStateChanged(auth, (user) => {
+//       resolve(user)
+//     })
+//   })
+// }
+
+async function onUserChange(
+  setUser: (user: DiscordUser | null | undefined) => void
+) {
+  return onAuthStateChanged(auth, async (userCredentials) => {
+    if (!userCredentials) return setUser(null) // No user is logged in
+    setUser(undefined) // Loading user
+    const user = await userService.getUser(userCredentials?.uid)
+    setUser(user) // User logged in
   })
 }
