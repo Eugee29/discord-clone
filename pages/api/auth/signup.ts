@@ -8,7 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     case 'POST':
       try {
         const { email, password, displayName } = req.body
-        const userCredentials = await authService.signup(
+        const userCredentials = await authService.register(
           email,
           password,
           displayName

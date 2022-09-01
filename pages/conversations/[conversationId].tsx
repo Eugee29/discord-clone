@@ -57,8 +57,8 @@ ConversationPage.getLayout = function getLayout(page: ReactNode) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const user = await authService.getCurrentUser()
-  if (!user) return { redirect: { permanent: false, destination: '/login' } }
+  // const user = await authService.getCurrentUser()
+  // if (!user) return { redirect: { permanent: false, destination: '/login' } }
 
   const { conversationId } = context.query
   const conversations = await conversationService.getConversation(
