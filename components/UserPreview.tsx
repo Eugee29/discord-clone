@@ -16,6 +16,7 @@ const UserPreview = ({ user }: Props) => {
           <Image
             className="rounded-full"
             src={user.photoURL || defaultPhotoURL}
+            alt={`${user.displayName}'s profile picture`}
             width="100%"
             height="100%"
           />

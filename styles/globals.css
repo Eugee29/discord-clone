@@ -14,15 +14,18 @@
   font-family: 'Whitney';
   src: url('/assets/fonts/whitney/whitney-light.woff2');
   font-weight: 300;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'ABC Ginto Normal';
   src: url('/assets/fonts/ginto/abc-ginto-normal.woff2');
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'ABC Ginto Normal';
   src: url('/assets/fonts/ginto/abc-ginto-italic.woff2');
   font-style: italic;
+  font-display: swap;
 }
