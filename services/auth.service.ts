@@ -32,6 +32,7 @@ async function register(email: string, password: string, displayName: string) {
 async function login(email: string, password: string) {
   try {
     const user = await signInWithEmailAndPassword(auth, email, password)
+
     return user
   } catch (error) {
     throw error

@@ -39,7 +39,7 @@ const Sidebar = ({ conversations }: Props) => {
                   isActive ? 'text-white' : 'text-discord-gray-50'
                 }`}
               >
-                People
+                Users
               </h1>
             </div>
           </div>
