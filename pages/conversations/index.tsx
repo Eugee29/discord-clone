@@ -7,6 +7,7 @@ import { GetServerSideProps } from 'next'
 import { DiscordUser } from '../../models/discord-user.model'
 import UserList from '../../components/UserList'
 import UserFilter from '../../components/UserFilter'
+import { useUser } from '../../context/UserContext'
 
 interface Props {
   users: DiscordUser[]
@@ -14,9 +15,12 @@ interface Props {
 
 const ConversationsPage = ({ users }: Props) => {
   const [displayNameFilter, setDisplayNameFilter] = useState('')
+  const { user } = useUser()
 
-  const usersToShow = users.filter((user) =>
-    new RegExp(displayNameFilter, 'i').test(user.displayName)
+  const usersToShow = users.filter(
+    (currUser) =>
+      new RegExp(displayNameFilter, 'i').test(currUser.displayName) &&
+      currUser.displayName != user?.displayName
   )
 
   return (
@@ -31,7 +35,7 @@ const ConversationsPage = ({ users }: Props) => {
       <div className="p-5">
         <UserFilter value={displayNameFilter} setValue={setDisplayNameFilter} />
         <h1 className="py-4 px-3 font-ginto uppercase text-xs text-discord-gray-20">
-          All users — {users.length}
+          All users — {usersToShow.length}
         </h1>
         <UserList users={usersToShow} />
       </div>
