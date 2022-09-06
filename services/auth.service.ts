@@ -6,8 +6,9 @@ import {
   updateProfile,
 } from 'firebase/auth'
 import { DiscordUser } from '../models/discord-user.model'
-import { auth } from '../firebase.config'
+import { auth, db } from '../firebase.config'
 import { userService } from './user.service'
+import { doc, onSnapshot } from 'firebase/firestore'
 
 export const authService = {
   register,
@@ -54,6 +55,11 @@ async function onUserChange(
     if (!userCredentials) return setUser(null) // No user is logged in
     setUser(undefined) // Loading user
     const user = await userService.getUser(userCredentials?.uid)
+
+    // const unsub = onSnapshot(doc(db, 'users', user?.id), (doc) => {
+    //   cb(doc.data() as DiscordUser)
+    // })
+
     setUser(user) // User logged in
   })
 }

@@ -8,6 +8,8 @@ import { DiscordUser } from '../../models/discord-user.model'
 import UserList from '../../components/UserList'
 import UserFilter from '../../components/UserFilter'
 import { useUser } from '../../context/UserContext'
+import { useRouter } from 'next/router'
+import { conversationService } from '../../services/conversation.service'
 
 interface Props {
   users: DiscordUser[]
@@ -15,7 +17,32 @@ interface Props {
 
 const ConversationsPage = ({ users }: Props) => {
   const [displayNameFilter, setDisplayNameFilter] = useState('')
-  const { user } = useUser()
+  const router = useRouter()
+  const { user, setUser } = useUser()
+
+  const startConversation = async (withUser: DiscordUser) => {
+    // Check if the user already has a conversation with 'withUser'
+    let conversation = user?.conversations.find(
+      (conversation) =>
+        conversation.members.length === 2 &&
+        conversation.members.find((member) => member.id === withUser.id)
+    )
+
+    // If the user doesn't have a conversation with 'withUser' create a new one
+    if (!conversation) {
+      const users: DiscordUser[] = [withUser, user!]
+      conversation = await conversationService.createConversation(users)
+      users.forEach(
+        async (user) =>
+          await userService.addConversationToUser(user.id, conversation!)
+      )
+      setUser({
+        ...user,
+        conversations: [...user!.conversations, conversation],
+      } as DiscordUser)
+    }
+    router.push(`/conversations/${conversation.id}`)
+  }
 
   const usersToShow = users.filter(
     (currUser) =>
@@ -37,7 +64,7 @@ const ConversationsPage = ({ users }: Props) => {
         <h1 className="py-4 px-3 font-ginto uppercase text-xs text-discord-gray-20">
           All users — {usersToShow.length}
         </h1>
-        <UserList users={usersToShow} />
+        <UserList users={usersToShow} startConversation={startConversation} />
       </div>
     </div>
   )

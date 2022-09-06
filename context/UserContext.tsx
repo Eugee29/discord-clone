@@ -1,3 +1,4 @@
+import { doc, onSnapshot } from 'firebase/firestore'
 import {
   createContext,
   Dispatch,
@@ -7,6 +8,7 @@ import {
   useEffect,
   useState,
 } from 'react'
+import { db } from '../firebase.config'
 import { DiscordUser } from '../models/discord-user.model'
 import { authService } from '../services/auth.service'
 

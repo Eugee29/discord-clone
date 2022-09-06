@@ -1,9 +1,15 @@
 import { User } from 'firebase/auth'
+import { Conversation } from '../models/conversation.model'
 import { DiscordUser } from '../models/discord-user.model'
 
 import { dbService } from './db.service'
 
-export const userService = { addUser, getUser, getAllUsers }
+export const userService = {
+  addUser,
+  getUser,
+  getAllUsers,
+  addConversationToUser,
+}
 
 const COLLECTION = 'users'
 
@@ -21,10 +27,18 @@ async function addUser(user: User) {
 }
 
 async function getUser(userId: string): Promise<DiscordUser> {
-  console.log('getting user')
-
   const user = await dbService.getItem(COLLECTION, userId)
   return user as DiscordUser
+}
+
+async function addConversationToUser(
+  userId: string,
+  conversation: Conversation
+) {
+  const user = await getUser(userId)
+  await dbService.updateItem(COLLECTION, user.id, {
+    conversations: [...user.conversations, conversation],
+  })
 }
 
 async function getAllUsers(): Promise<DiscordUser[]> {

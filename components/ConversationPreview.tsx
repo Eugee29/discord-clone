@@ -11,6 +11,8 @@ const ConversationPreview = ({ conversation }: Props) => {
   const router = useRouter()
 
   const isActive = router.query.conversationId === conversation.id
+  const defaultPhotoURL =
+    'https://i.pinimg.com/originals/d0/37/0f/d0370fc08a89f10da14d64718269d4c1.jpg'
 
   return (
     <Link href={`/conversations/${conversation.id}`}>
@@ -24,7 +26,7 @@ const ConversationPreview = ({ conversation }: Props) => {
             className="rounded-full"
             height="100%"
             width="100%"
-            src={conversation.members[0].photoURL}
+            src={conversation.members[0].photoURL || defaultPhotoURL}
             alt={conversation.members[0].displayName}
           />
         </div>
