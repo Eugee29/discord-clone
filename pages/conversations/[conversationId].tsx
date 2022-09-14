@@ -13,11 +13,16 @@ interface Props {
 }
 
 const ConversationPage = ({ conversation }: Props) => {
-  const conversationName = conversation?.members[0].displayName
+  const conversationName = conversationService.getConversationName(conversation)
 
   return (
     <>
-      <Meta title={conversationName} />
+      <Meta>
+        <title>
+          Discord |{' '}
+          {(conversation.members.length === 2 ? '@' : '') + conversationName}
+        </title>
+      </Meta>
       <main className="flex-1 flex flex-col bg-discord-gray-300">
         {conversation ? (
           <>
@@ -44,11 +49,11 @@ ConversationPage.getLayout = function getLayout(page: ReactNode) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { conversationId } = context.query
-  const conversations = await conversationService.getConversation(
+  const conversation = await conversationService.getConversation(
     conversationId as string
   )
 
-  return { props: { conversations } }
+  return { props: { conversation } }
 }
 
 export default ConversationPage

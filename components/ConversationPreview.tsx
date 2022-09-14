@@ -1,7 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useUser } from '../context/UserContext'
 import { Conversation } from '../models/conversation.model'
+import { conversationService } from '../services/conversation.service'
 
 interface Props {
   conversation: Conversation
@@ -10,6 +12,7 @@ interface Props {
 const ConversationPreview = ({ conversation }: Props) => {
   const router = useRouter()
 
+  const conversationName = conversationService.getConversationName(conversation)
   const isActive = router.query.conversationId === conversation.id
   const defaultPhotoURL =
     'https://i.pinimg.com/originals/d0/37/0f/d0370fc08a89f10da14d64718269d4c1.jpg'
@@ -27,7 +30,7 @@ const ConversationPreview = ({ conversation }: Props) => {
             height="100%"
             width="100%"
             src={conversation.members[0].photoURL || defaultPhotoURL}
-            alt={conversation.members[0].displayName}
+            alt={conversationName}
           />
         </div>
         <div className="flex flex-col flex-1 justify-center">
@@ -36,7 +39,7 @@ const ConversationPreview = ({ conversation }: Props) => {
               isActive ? 'text-white' : 'text-discord-gray-50'
             }`}
           >
-            {conversation.members[0].displayName}
+            {conversationName}
           </h1>
           {conversation.members.length > 2 && (
             <h2 className="text-xs text-discord-gray-50 leading-4">

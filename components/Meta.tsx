@@ -1,14 +1,16 @@
 import Head from 'next/head'
+import { ReactNode } from 'react'
 
 interface Props {
-  title?: string
+  children?: ReactNode
 }
 
-const Meta = ({ title = 'Discord' }: Props) => {
+const Meta = ({ children }: Props) => {
   return (
     <Head>
       <meta name="description" content="Discord Clone - A communication app." />
-      <title>{title}</title>
+      <title>Discord</title>
+      {children}
     </Head>
   )
 }

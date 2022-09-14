@@ -10,6 +10,7 @@ import UserFilter from '../../components/UserFilter'
 import { useUser } from '../../context/UserContext'
 import { useRouter } from 'next/router'
 import { conversationService } from '../../services/conversation.service'
+import Meta from '../../components/Meta'
 
 interface Props {
   users: DiscordUser[]
@@ -51,22 +52,30 @@ const ConversationsPage = ({ users }: Props) => {
   )
 
   return (
-    <div className="flex-1 bg-discord-gray-300">
-      <ConversationHeader>
-        <BsFillPeopleFill
-          aria-label="people"
-          className="w-5 h-5 text-discord-gray-50"
-        />
-        <h1 className="text-white">Users</h1>
-      </ConversationHeader>
-      <div className="p-5">
-        <UserFilter value={displayNameFilter} setValue={setDisplayNameFilter} />
-        <h1 className="py-4 px-3 font-ginto uppercase text-xs text-discord-gray-20">
-          All users — {usersToShow.length}
-        </h1>
-        <UserList users={usersToShow} startConversation={startConversation} />
+    <>
+      <Meta>
+        <title>Discord | Users</title>
+      </Meta>
+      <div className="flex-1 bg-discord-gray-300">
+        <ConversationHeader>
+          <BsFillPeopleFill
+            aria-label="people"
+            className="w-5 h-5 text-discord-gray-50"
+          />
+          <h1 className="text-white">Users</h1>
+        </ConversationHeader>
+        <div className="p-5">
+          <UserFilter
+            value={displayNameFilter}
+            setValue={setDisplayNameFilter}
+          />
+          <h1 className="py-4 px-3 font-ginto uppercase text-xs text-discord-gray-20">
+            All users — {usersToShow.length}
+          </h1>
+          <UserList users={usersToShow} startConversation={startConversation} />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
