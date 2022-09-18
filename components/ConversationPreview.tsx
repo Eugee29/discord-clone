@@ -1,9 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import { useUser } from '../context/UserContext'
 import { Conversation } from '../models/conversation.model'
+import { DiscordUser } from '../models/discord-user.model'
 import { conversationService } from '../services/conversation.service'
+import { userService } from '../services/user.service'
 
 interface Props {
   conversation: Conversation
@@ -11,11 +14,27 @@ interface Props {
 
 const ConversationPreview = ({ conversation }: Props) => {
   const router = useRouter()
+  const { user } = useUser()
+  const [members, setMembers] = useState<DiscordUser[] | null>(null)
 
-  const conversationName = conversationService.getConversationName(conversation)
+  useEffect(() => {
+    ;(async () => {
+      const conversationMembers = await userService.getMultipleUsers(
+        conversation.membersIds
+      )
+      setMembers(conversationMembers)
+    })()
+  }, [])
+
+  if (!members) return <h1>Loading...</h1>
+
   const isActive = router.query.conversationId === conversation.id
   const defaultPhotoURL =
     'https://i.pinimg.com/originals/d0/37/0f/d0370fc08a89f10da14d64718269d4c1.jpg'
+
+  const { title, photoURL } = conversationService.getConversationTitleAndPhoto(
+    members.filter((member) => member.id != user!.id)
+  )
 
   return (
     <Link href={`/conversations/${conversation.id}`}>
@@ -29,8 +48,8 @@ const ConversationPreview = ({ conversation }: Props) => {
             className="rounded-full"
             height="100%"
             width="100%"
-            src={conversation.members[0].photoURL || defaultPhotoURL}
-            alt={conversationName}
+            src={photoURL || defaultPhotoURL}
+            alt={title}
           />
         </div>
         <div className="flex flex-col flex-1 justify-center">
@@ -39,11 +58,11 @@ const ConversationPreview = ({ conversation }: Props) => {
               isActive ? 'text-white' : 'text-discord-gray-50'
             }`}
           >
-            {conversationName}
+            {title}
           </h1>
-          {conversation.members.length > 2 && (
+          {members.length > 2 && (
             <h2 className="text-xs text-discord-gray-50 leading-4">
-              {conversation.members.length} Members
+              {members.length} Members
             </h2>
           )}
         </div>

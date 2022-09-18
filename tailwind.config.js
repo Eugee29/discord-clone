@@ -13,11 +13,6 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Whitney', ...defaultTheme.fontFamily.sans],
-        // ['whitney-light']: [
-        //   'Whitney Light',
-        //   'Whitney Normal',
-        //   ...defaultTheme.fontFamily.sans,
-        // ],
       },
       colors: {
         discord: {

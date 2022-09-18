@@ -3,7 +3,7 @@ import UserPreview from './UserPreview'
 
 interface Props {
   users: DiscordUser[]
-  startConversation: (withUser: DiscordUser) => void
+  startConversation: (withUserId: string) => void
 }
 
 const UserList = ({ users, startConversation }: Props) => {

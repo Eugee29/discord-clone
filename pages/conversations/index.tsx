@@ -21,21 +21,21 @@ const ConversationsPage = ({ users }: Props) => {
   const router = useRouter()
   const { user, setUser } = useUser()
 
-  const startConversation = async (withUser: DiscordUser) => {
+  const startConversation = async (withUserId: string) => {
     // Check if the user already has a conversation with 'withUser'
     let conversation = user?.conversations.find(
       (conversation) =>
-        conversation.members.length === 2 &&
-        conversation.members.find((member) => member.id === withUser.id)
+        conversation.membersIds.length === 2 &&
+        conversation.membersIds.find((memberId) => memberId === withUserId)
     )
 
     // If the user doesn't have a conversation with 'withUser' create a new one
     if (!conversation) {
-      const users: DiscordUser[] = [withUser, user!]
-      conversation = await conversationService.createConversation(users)
-      users.forEach(
-        async (user) =>
-          await userService.addConversationToUser(user.id, conversation!)
+      const membersIds: string[] = [withUserId, user!.id]
+      conversation = await conversationService.createConversation(membersIds)
+      membersIds.forEach(
+        async (memberId) =>
+          await userService.addConversationToUser(memberId, conversation!)
       )
       setUser({
         ...user,
@@ -48,7 +48,7 @@ const ConversationsPage = ({ users }: Props) => {
   const usersToShow = users.filter(
     (currUser) =>
       new RegExp(displayNameFilter, 'i').test(currUser.displayName) &&
-      currUser.displayName != user?.displayName
+      currUser.id != user?.id
   )
 
   return (

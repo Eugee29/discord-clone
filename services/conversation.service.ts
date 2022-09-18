@@ -1,13 +1,13 @@
 import { v4 as uuidv4 } from 'uuid'
-import { useUser } from '../context/UserContext'
 import { Conversation } from '../models/conversation.model'
 import { DiscordUser } from '../models/discord-user.model'
 import { dbService } from './db.service'
+import { userService } from './user.service'
 
 export const conversationService = {
   getConversation,
   createConversation,
-  getConversationName,
+  getConversationTitleAndPhoto,
 }
 
 const COLLECTION = 'conversations'
@@ -17,24 +17,18 @@ async function getConversation(conversationId: string): Promise<Conversation> {
   return conversation as Conversation
 }
 
-async function createConversation(users: DiscordUser[]): Promise<Conversation> {
+async function createConversation(membersIds: string[]): Promise<Conversation> {
   const conversation: Conversation = {
     id: uuidv4(),
-    members: users.map((user: DiscordUser) => ({
-      id: user.id,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-    })) as DiscordUser[],
+    membersIds,
     messages: [],
   }
   await dbService.addItem(conversation, COLLECTION, conversation.id)
   return conversation
 }
 
-function getConversationName(conversation: Conversation) {
-  const { user } = useUser()
-  const conversationName = conversation.members
-    .filter((member) => member.id !== user!.id)
-    .map((member) => member.displayName)
-  return conversationName.join(',')
+function getConversationTitleAndPhoto(members: DiscordUser[]) {
+  const title = members.map((member) => member.displayName).join(', ')
+  const photoURL = members.length > 1 ? '' : members[0].photoURL
+  return { title, photoURL }
 }
