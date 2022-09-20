@@ -1,4 +1,3 @@
-import { doc, onSnapshot } from 'firebase/firestore'
 import { GetServerSideProps } from 'next'
 import { ReactNode, useEffect, useRef, useState } from 'react'
 import { SiMaildotru } from 'react-icons/si'
@@ -7,7 +6,6 @@ import MessageBox from '../../components/MessageBox'
 import MessageList from '../../components/MessageList'
 import Meta from '../../components/Meta'
 import { useUser } from '../../context/UserContext'
-import { db } from '../../firebase.config'
 import Layout from '../../layouts/Layout'
 import { Conversation } from '../../models/conversation.model'
 import { DiscordUser } from '../../models/discord-user.model'
@@ -36,6 +34,7 @@ const ConversationPage = (props: Props) => {
         console.log('new message')
       }
     )
+
     ;(async () => {
       const conversationMembers = await userService.getMultipleUsers(
         conversation.membersIds
@@ -44,7 +43,7 @@ const ConversationPage = (props: Props) => {
     })()
     scrollToLastMessage()
     return () => unsubscribe()
-  }, [])
+  }, [conversation.id, conversation.membersIds])
 
   if (!members)
     return (

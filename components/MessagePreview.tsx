@@ -16,7 +16,7 @@ const MessagePreview = ({ message }: Props) => {
       const user = await userService.getUser(message.byUserId)
       setByUser(user)
     })()
-  }, [])
+  }, [message.byUserId])
 
   const sentAtDate = new Date(message.sentAt).toLocaleDateString('en-US')
   // MessagePreviewLoader
