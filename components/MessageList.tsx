@@ -11,7 +11,7 @@ interface Props {
 const MessageList = ({ messages, innerRef, scrollToLastMessage }: Props) => {
   useEffect(() => {
     scrollToLastMessage()
-  }, [])
+  }, [messages])
 
   return (
     <ul className="overflow-auto px-4 mt-auto flex flex-col ">

@@ -41,7 +41,6 @@ const ConversationPage = (props: Props) => {
       )
       setMembers(conversationMembers)
     })()
-    scrollToLastMessage()
     return () => unsubscribe()
   }, [])
 
@@ -62,7 +61,7 @@ const ConversationPage = (props: Props) => {
     } as Message
 
     await conversationService.sendMessage(conversation!.id, message)
-    scrollToLastMessage({ behavior: 'smooth' })
+    // scrollToLastMessage({ behavior: 'smooth' })
   }
 
   const { title } = conversationService.getConversationTitleAndPhoto(
