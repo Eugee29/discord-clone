@@ -43,7 +43,7 @@ const ConversationPage = (props: Props) => {
     })()
     scrollToLastMessage()
     return () => unsubscribe()
-  }, [conversation.id, conversation.membersIds])
+  }, [])
 
   if (!members)
     return (
