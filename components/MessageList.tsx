@@ -1,15 +1,27 @@
 import { Message } from '../models/message.model'
 import MessagePreview from './MessagePreview'
+import { useEffect, RefObject } from 'react'
 
 interface Props {
   messages: Message[]
+  innerRef: RefObject<HTMLLIElement>
+  scrollToLastMessage: (options?: ScrollIntoViewOptions) => void
 }
 
-const MessageList = ({ messages }: Props) => {
+const MessageList = ({ messages, innerRef, scrollToLastMessage }: Props) => {
+  useEffect(() => {
+    console.log(innerRef)
+
+    scrollToLastMessage()
+  }, [])
+
   return (
-    <ul className="flex-1 flex  flex-col-reverse gap-4">
-      {messages.map((message) => (
-        <li key={message.id}>
+    <ul className="overflow-auto px-4 mt-auto flex flex-col ">
+      {messages.map((message, index) => (
+        <li
+          key={message.id}
+          ref={index === messages.length - 1 ? innerRef : null}
+        >
           <MessagePreview message={message} />
         </li>
       ))}

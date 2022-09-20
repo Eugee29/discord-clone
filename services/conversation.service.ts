@@ -1,12 +1,15 @@
 import { v4 as uuidv4 } from 'uuid'
 import { Conversation } from '../models/conversation.model'
 import { DiscordUser } from '../models/discord-user.model'
+import { Message } from '../models/message.model'
 import { dbService } from './db.service'
 import { userService } from './user.service'
 
 export const conversationService = {
   getConversation,
   createConversation,
+  subscribeToConversation,
+  sendMessage,
   getConversationTitleAndPhoto,
 }
 
@@ -25,6 +28,21 @@ async function createConversation(membersIds: string[]): Promise<Conversation> {
   }
   await dbService.addItem(conversation, COLLECTION, conversation.id)
   return conversation
+}
+
+function subscribeToConversation(
+  conversationId: string,
+  onChange: (parameters: any) => any
+) {
+  return dbService.subscribeToItem(COLLECTION, conversationId, onChange)
+}
+
+async function sendMessage(conversationId: string, message: Message) {
+  const conversation = await getConversation(conversationId)
+  message.id = uuidv4()
+  await dbService.updateItem(COLLECTION, conversation.id, {
+    messages: [...conversation.messages, message],
+  })
 }
 
 function getConversationTitleAndPhoto(members: DiscordUser[]) {

@@ -18,7 +18,7 @@ const Layout = ({ children }: Props) => {
   if (!user) return <div className="h-full bg-discord-gray-300" />
 
   return (
-    <div className="h-full flex">
+    <div className="max-h-screen h-full flex">
       <Sidebar conversations={user?.conversations || []} />
       {children}
     </div>

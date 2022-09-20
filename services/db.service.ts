@@ -3,12 +3,19 @@ import {
   doc,
   getDoc,
   getDocs,
+  onSnapshot,
   setDoc,
   updateDoc,
 } from 'firebase/firestore'
 import { db } from '../firebase.config'
 
-export const dbService = { addItem, getItem, getAllItems, updateItem }
+export const dbService = {
+  addItem,
+  getItem,
+  subscribeToItem,
+  getAllItems,
+  updateItem,
+}
 
 async function addItem(item: any, fromCollection: string, key: string) {
   await setDoc(doc(db, fromCollection, key), item)
@@ -28,6 +35,14 @@ async function updateItem(
 ) {
   const itemRef = doc(db, fromCollection, key)
   await updateDoc(itemRef, updatedValue)
+}
+
+function subscribeToItem(
+  fromCollection: string,
+  key: string,
+  onChange: (parameters: any) => any
+) {
+  return onSnapshot(doc(db, fromCollection, key), (doc) => onChange(doc.data()))
 }
 
 async function getAllItems(fromCollection: string) {
