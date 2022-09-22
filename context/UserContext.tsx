@@ -1,4 +1,3 @@
-import { doc, onSnapshot } from 'firebase/firestore'
 import {
   createContext,
   Dispatch,
@@ -8,7 +7,7 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { db } from '../firebase.config'
+
 import { DiscordUser } from '../models/discord-user.model'
 import { authService } from '../services/auth.service'
 
@@ -25,10 +24,8 @@ export const UserProvider = ({ children }: Props) => {
   const [user, setUser] = useState<DiscordUser | null>()
 
   useEffect(() => {
-    ;(async () => {
-      const unsubscribe = await authService.onUserChange(setUser)
-      return () => unsubscribe()
-    })()
+    const unsubscribe = authService.onUserChange(setUser)
+    return () => unsubscribe()
   }, [])
 
   return (

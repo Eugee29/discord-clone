@@ -52,13 +52,11 @@ async function logout() {
   }
 }
 
-async function onUserChange(
-  setUser: (user: DiscordUser | null | undefined) => void
-) {
+function onUserChange(onChange: (parameter: any) => void) {
   return onAuthStateChanged(auth, async (userCredentials) => {
-    if (!userCredentials) return setUser(null) // No user is logged in
-    setUser(undefined) // Loading user
+    if (!userCredentials) return onChange(null) // No user is logged in
+    onChange(undefined) // Loading user
     const user = await userService.getUser(userCredentials?.uid)
-    setUser(user)
+    onChange(user)
   })
 }

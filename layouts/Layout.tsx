@@ -13,7 +13,7 @@ const Layout = ({ children }: Props) => {
 
   useEffect(() => {
     if (user === null) router.push('/login')
-  }, [user, router])
+  }, [user])
 
   if (!user) return <div className="h-full bg-discord-gray-300" />
 

@@ -10,7 +10,7 @@ const RegisterPage = () => {
 
   useEffect(() => {
     if (user) router.push('/conversations')
-  }, [user, router])
+  }, [user])
 
   const onRegister = async (
     email: string,
