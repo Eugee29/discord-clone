@@ -57,13 +57,16 @@ const ConversationsPage = ({ users }: Props) => {
         <title>Discord | Users</title>
       </Meta>
       <div className="flex-1 bg-discord-gray-300">
-        <ConversationHeader>
-          <BsFillPeopleFill
-            aria-label="people"
-            className="w-5 h-5 text-discord-gray-50"
-          />
-          <h1 className="text-white">Users</h1>
-        </ConversationHeader>
+        <ConversationHeader
+          icon={
+            <BsFillPeopleFill
+              aria-label="people"
+              className="w-5 h-5 text-discord-gray-50"
+            />
+          }
+          title="Users"
+        />
+
         <div className="p-5">
           <UserFilter
             value={displayNameFilter}

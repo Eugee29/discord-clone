@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next'
+import { useRouter } from 'next/router'
 import { ReactNode, useEffect, useRef, useState } from 'react'
 import { SiMaildotru } from 'react-icons/si'
 import ConversationHeader from '../../components/ConversationHeader'
@@ -19,6 +20,7 @@ interface Props {
 
 const ConversationPage = (props: Props) => {
   const { user } = useUser()
+  const router = useRouter()
   const lastMsgRef = useRef<HTMLLIElement>(null)
   const [members, setMembers] = useState<DiscordUser[] | null>(null)
   const [conversation, setConversation] = useState<Conversation>(
@@ -27,24 +29,23 @@ const ConversationPage = (props: Props) => {
 
   useEffect(() => {
     const unsubscribe = conversationService.subscribeToConversation(
-      conversation.id,
-      (updatedConversation) => {
+      router.query.conversationId as string,
+      async (updatedConversation) => {
+        const conversationMembers = await userService.getMultipleUsers(
+          updatedConversation.membersIds
+        )
         setConversation(updatedConversation)
+        setMembers(conversationMembers)
+
         // Handle unread messages
         console.log('new message')
       }
     )
 
-    ;(async () => {
-      const conversationMembers = await userService.getMultipleUsers(
-        conversation.membersIds
-      )
-      setMembers(conversationMembers)
-    })()
     return () => unsubscribe()
-  }, [])
+  }, [router.query.conversationId])
 
-  if (!members)
+  if (!conversation || !members)
     return (
       <div className="flex-1 flex flex-col bg-discord-gray-300 max-h-screen" />
     )
@@ -61,7 +62,6 @@ const ConversationPage = (props: Props) => {
     } as Message
 
     await conversationService.sendMessage(conversation!.id, message)
-    // scrollToLastMessage({ behavior: 'smooth' })
   }
 
   const { title } = conversationService.getConversationTitleAndPhoto(
@@ -75,13 +75,15 @@ const ConversationPage = (props: Props) => {
       </Meta>
 
       <main className="flex-1 flex flex-col bg-discord-gray-300 max-h-screen">
-        <ConversationHeader>
-          <SiMaildotru
-            aria-label="@"
-            className="w-5 h-5 text-discord-gray-50"
-          />
-          <h1 className="text-white">{title}</h1>
-        </ConversationHeader>
+        <ConversationHeader
+          icon={
+            <SiMaildotru
+              aria-label="@"
+              className="w-5 h-5 text-discord-gray-50"
+            />
+          }
+          title={title}
+        />
 
         <MessageList
           messages={conversation.messages}

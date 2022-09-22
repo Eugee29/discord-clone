@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Conversation } from '../models/conversation.model'
 import { authService } from '../services/auth.service'
+import SidebarFooter from './SidebarFooter'
 
 interface Props {
   conversations: Conversation[] | null
@@ -18,7 +19,7 @@ const Sidebar = ({ conversations }: Props) => {
   return (
     <nav className="flex flex-col h-full basis-60 bg-discord-gray-400 ">
       <SidebarHeader />
-      <div className="p-2">
+      <div className="p-2 flex-1">
         <Link href="/conversations">
           <div
             className={`group hover:bg-discord-gray-250 flex gap-3 px-2 py-[3px] rounded cursor-pointer mb-4 ${
@@ -49,7 +50,8 @@ const Sidebar = ({ conversations }: Props) => {
         </h1>
         <ConversationList conversations={conversations} />
       </div>
-      <button onClick={async () => await authService.logout()}>Log out</button>
+      {/* <button onClick={async () => await authService.logout()}>Log out</button> */}
+      <SidebarFooter />
     </nav>
   )
 }
