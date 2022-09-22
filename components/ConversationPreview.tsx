@@ -26,7 +26,7 @@ const ConversationPreview = ({ conversation }: Props) => {
     })()
   }, [])
 
-  if (!members) return <h1>Loading...</h1>
+  if (!members) return <></>
 
   const isActive = router.query.conversationId === conversation.id
 

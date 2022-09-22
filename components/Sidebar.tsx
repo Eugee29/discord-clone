@@ -50,7 +50,7 @@ const Sidebar = ({ conversations }: Props) => {
         </h1>
         <ConversationList conversations={conversations} />
       </div>
-      {/* <button onClick={async () => await authService.logout()}>Log out</button> */}
+
       <SidebarFooter />
     </nav>
   )
