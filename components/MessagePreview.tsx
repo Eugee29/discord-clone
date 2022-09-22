@@ -22,8 +22,8 @@ const MessagePreview = ({ message }: Props) => {
   // MessagePreviewLoader
   if (!byUser)
     return (
-      <div className="flex gap-4 py-0.5 mb-4">
-        <div className="w-10 h-10 rounded-full bg-discord-gray-250" />
+      <div className="flex gap-4 py-0.5 mb-4  ">
+        <div className="w-10 h-10 rounded-full bg-discord-gray-250 " />
 
         <div className="leading-snug flex-1">
           <h1 className="text-white bg-discord-gray-200 w-fit rounded-full text-transparent">
@@ -37,9 +37,6 @@ const MessagePreview = ({ message }: Props) => {
       </div>
     )
 
-  const defaultPhotoURL =
-    'https://i.pinimg.com/originals/d0/37/0f/d0370fc08a89f10da14d64718269d4c1.jpg'
-
   return (
     <div className="flex gap-4 py-0.5 mb-4">
       <div className="w-10 h-10">
@@ -47,7 +44,7 @@ const MessagePreview = ({ message }: Props) => {
           className="rounded-full"
           width="100%"
           height="100%"
-          src={byUser.photoURL || defaultPhotoURL}
+          src={byUser.photoURL}
           alt={byUser.displayName}
         />
       </div>

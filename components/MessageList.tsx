@@ -14,7 +14,7 @@ const MessageList = ({ messages, innerRef, scrollToLastMessage }: Props) => {
   }, [messages])
 
   return (
-    <ul className="overflow-auto px-4 mt-auto flex flex-col ">
+    <ul className="overflow-auto px-4 mt-auto flex flex-col mr-1 custom-scrollbar">
       {messages.map((message, index) => (
         <li
           key={message.id}

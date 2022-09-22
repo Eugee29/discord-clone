@@ -10,7 +10,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (user) router.push('/conversations')
-  }, [user, router])
+  }, [user])
 
   const onLogin = async (username: string, password: string) => {
     try {

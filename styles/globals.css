@@ -29,3 +29,20 @@
   font-style: italic;
   font-display: swap;
 }
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+  width: 8px;
+  margin: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2e3338;
+  margin: 4px;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #202225;
+  border-radius: 999px;
+}

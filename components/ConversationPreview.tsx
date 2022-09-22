@@ -29,8 +29,6 @@ const ConversationPreview = ({ conversation }: Props) => {
   if (!members) return <h1>Loading...</h1>
 
   const isActive = router.query.conversationId === conversation.id
-  const defaultPhotoURL =
-    'https://i.pinimg.com/originals/d0/37/0f/d0370fc08a89f10da14d64718269d4c1.jpg'
 
   const { title, photoURL } = conversationService.getConversationTitleAndPhoto(
     members.filter((member) => member.id != user!.id)
@@ -48,7 +46,7 @@ const ConversationPreview = ({ conversation }: Props) => {
             className="rounded-full"
             height="100%"
             width="100%"
-            src={photoURL || defaultPhotoURL}
+            src={photoURL}
             alt={title}
           />
         </div>
