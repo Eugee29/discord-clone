@@ -11,5 +11,6 @@ If you encounter any bugs, please let me know: uri2920@gmail.com
 
 ## Deployment
 
-Checkout the deployment here: https://discord-clone-jojiiir3j-eugee29.vercel.app
+Checkout the deployment here: https://discord-clone-jojiiir3j-eugee29.vercel.app  
+*note*
 
