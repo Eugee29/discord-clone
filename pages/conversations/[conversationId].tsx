@@ -25,7 +25,6 @@ const ConversationPage = (props: Props) => {
   const [conversation, setConversation] = useState<Conversation>(
     props.conversation
   )
-
   const [lastMsgRef, setLastMsgRef] = useState<RefObject<HTMLDivElement>>()
 
   useEffect(() => {
@@ -93,7 +92,7 @@ const ConversationPage = (props: Props) => {
         <MessageList
           messages={conversation.messages}
           scrollToLastMessage={scrollToLastMessage}
-          setLastRef={setLastMsgRef}
+          setLastMsgRef={setLastMsgRef}
         />
         <MessageBox
           placeholder={(members.length <= 2 ? '@' : '') + title}
