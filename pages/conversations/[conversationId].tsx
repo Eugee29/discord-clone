@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import { ReactNode, useEffect, useRef, useState } from 'react'
+import { ReactNode, RefObject, useEffect, useState } from 'react'
 import { SiMaildotru } from 'react-icons/si'
 import ConversationHeader from '../../components/ConversationHeader'
 import MessageBox from '../../components/MessageBox'
@@ -21,11 +21,16 @@ interface Props {
 const ConversationPage = (props: Props) => {
   const { user } = useUser()
   const router = useRouter()
-  const lastMsgRef = useRef<HTMLLIElement>(null)
   const [members, setMembers] = useState<DiscordUser[] | null>(null)
   const [conversation, setConversation] = useState<Conversation>(
     props.conversation
   )
+
+  const [lastMsgRef, setLastMsgRef] = useState<RefObject<HTMLDivElement>>()
+
+  useEffect(() => {
+    scrollToLastMessage()
+  }, [lastMsgRef])
 
   useEffect(() => {
     const unsubscribe = conversationService.subscribeToConversation(
@@ -51,7 +56,7 @@ const ConversationPage = (props: Props) => {
     )
 
   function scrollToLastMessage(options?: ScrollIntoViewOptions) {
-    lastMsgRef.current?.scrollIntoView(options)
+    lastMsgRef?.current?.scrollIntoView(options)
   }
 
   const onSendMessage = async (messageText: string) => {
@@ -87,8 +92,8 @@ const ConversationPage = (props: Props) => {
 
         <MessageList
           messages={conversation.messages}
-          innerRef={lastMsgRef}
           scrollToLastMessage={scrollToLastMessage}
+          setLastRef={setLastMsgRef}
         />
         <MessageBox
           placeholder={(members.length <= 2 ? '@' : '') + title}
