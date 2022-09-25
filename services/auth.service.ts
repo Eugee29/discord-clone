@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
+  User,
 } from 'firebase/auth'
 import { DiscordUser } from '../models/discord-user.model'
 import { auth } from '../firebase.config'
@@ -52,11 +53,8 @@ async function logout() {
   }
 }
 
-function onUserChange(onChange: (parameter: any) => void) {
-  return onAuthStateChanged(auth, async (userCredentials) => {
-    if (!userCredentials) return onChange(null) // No user is logged in
-    onChange(undefined) // Loading user
-    const user = await userService.getUser(userCredentials?.uid)
-    onChange(user)
+function onUserChange(onChange: (userCredentials: User | null) => void) {
+  return onAuthStateChanged(auth, (userCredentials) => {
+    onChange(userCredentials)
   })
 }

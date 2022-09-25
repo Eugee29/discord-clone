@@ -9,6 +9,7 @@ export const userService = {
   getMultipleUsers,
   getAllUsers,
   addConversationToUser,
+  subscribeToUser,
 }
 
 const COLLECTION = 'users'
@@ -51,6 +52,10 @@ async function addConversationToUser(
   await dbService.updateItem(COLLECTION, user.id, {
     conversations: [...user.conversations, conversation],
   })
+}
+
+function subscribeToUser(userId: string, onChange: (user: DiscordUser) => any) {
+  return dbService.subscribeToItem(COLLECTION, userId, onChange)
 }
 
 async function getAllUsers(): Promise<DiscordUser[]> {
