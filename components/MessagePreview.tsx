@@ -15,10 +15,12 @@ import MessagePreviewLoader from './MessagePreviewLoader'
 
 interface Props {
   message: Message
-  setLastRef?: Dispatch<SetStateAction<RefObject<HTMLDivElement> | undefined>>
+  setLastMsgRef?: Dispatch<
+    SetStateAction<RefObject<HTMLDivElement> | undefined>
+  >
 }
 
-const MessagePreview = ({ message, setLastRef }: Props) => {
+const MessagePreview = ({ message, setLastMsgRef }: Props) => {
   const [byUser, setByUser] = useState<DiscordUser | null>(null)
   const messageRef: LegacyRef<HTMLDivElement> = useRef(null)
 
@@ -30,8 +32,8 @@ const MessagePreview = ({ message, setLastRef }: Props) => {
   }, [])
 
   useEffect(() => {
-    if (setLastRef) setLastRef(messageRef)
-  }, [messageRef])
+    if (setLastMsgRef) setLastMsgRef(messageRef)
+  }, [byUser])
 
   if (!byUser) return <MessagePreviewLoader message={message} />
 

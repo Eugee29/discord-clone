@@ -4,12 +4,15 @@ import { useEffect, RefObject, Dispatch, SetStateAction } from 'react'
 
 interface Props {
   messages: Message[]
-
-  setLastRef: Dispatch<SetStateAction<RefObject<HTMLDivElement> | undefined>>
+  setLastMsgRef: Dispatch<SetStateAction<RefObject<HTMLDivElement> | undefined>>
   scrollToLastMessage: (options?: ScrollIntoViewOptions) => void
 }
 
-const MessageList = ({ messages, setLastRef, scrollToLastMessage }: Props) => {
+const MessageList = ({
+  messages,
+  setLastMsgRef,
+  scrollToLastMessage,
+}: Props) => {
   useEffect(() => {
     scrollToLastMessage({ behavior: 'smooth' })
   }, [messages])
@@ -19,7 +22,7 @@ const MessageList = ({ messages, setLastRef, scrollToLastMessage }: Props) => {
       {messages.map((message, index) => (
         <li key={message.id}>
           {index === messages.length - 1 ? (
-            <MessagePreview message={message} setLastRef={setLastRef} />
+            <MessagePreview message={message} setLastMsgRef={setLastMsgRef} />
           ) : (
             <MessagePreview message={message} />
           )}
