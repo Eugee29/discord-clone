@@ -4,7 +4,6 @@ import { useEffect, RefObject, Dispatch, SetStateAction } from 'react'
 
 interface Props {
   messages: Message[]
-
   setLastMsgRef: Dispatch<SetStateAction<RefObject<HTMLDivElement> | undefined>>
   scrollToLastMessage: (options?: ScrollIntoViewOptions) => void
 }
