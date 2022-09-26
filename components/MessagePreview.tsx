@@ -11,6 +11,7 @@ import {
 import { DiscordUser } from '../models/discord-user.model'
 import { Message } from '../models/message.model'
 import { userService } from '../services/user.service'
+import { utilService } from '../services/util.service'
 import MessagePreviewLoader from './MessagePreviewLoader'
 
 interface Props {
@@ -37,8 +38,6 @@ const MessagePreview = ({ message, setLastMsgRef }: Props) => {
 
   if (!byUser) return <MessagePreviewLoader message={message} />
 
-  const sentAtDate = new Date(message.sentAt).toLocaleDateString('en-US')
-
   return (
     <div className="flex gap-4 py-0.5 mb-4" ref={messageRef}>
       <div className="w-10 h-10">
@@ -53,8 +52,8 @@ const MessagePreview = ({ message, setLastMsgRef }: Props) => {
       <div className="leading-snug flex-1">
         <h1 className="text-white ">
           {byUser.displayName}
-          <span className="text-xs text-discord-gray-50 ml-2">
-            {sentAtDate}
+          <span className="text-xs text-discord-gray-30 ml-2">
+            {utilService.formatDate(message.sentAt)}
           </span>
         </h1>
         <pre className="text-discord-gray-10 font-sans font-light">
