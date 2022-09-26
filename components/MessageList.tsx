@@ -5,18 +5,9 @@ import { useEffect, RefObject, Dispatch, SetStateAction } from 'react'
 interface Props {
   messages: Message[]
   setLastMsgRef: Dispatch<SetStateAction<RefObject<HTMLDivElement> | undefined>>
-  scrollToLastMessage: (options?: ScrollIntoViewOptions) => void
 }
 
-const MessageList = ({
-  messages,
-  setLastMsgRef,
-  scrollToLastMessage,
-}: Props) => {
-  useEffect(() => {
-    scrollToLastMessage({ behavior: 'smooth' })
-  }, [messages])
-
+const MessageList = ({ messages, setLastMsgRef }: Props) => {
   return (
     <ul className="overflow-auto px-4 mt-auto flex flex-col mr-1 custom-scrollbar">
       {messages.map((message, index) => (

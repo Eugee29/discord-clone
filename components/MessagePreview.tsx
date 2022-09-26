@@ -28,13 +28,14 @@ const MessagePreview = ({ message, setLastMsgRef }: Props) => {
   useEffect(() => {
     ;(async () => {
       const user = await userService.getUser(message.byUserId)
+      if (setLastMsgRef) setLastMsgRef(messageRef)
       setByUser(user)
     })()
   }, [])
 
-  useEffect(() => {
-    if (setLastMsgRef) setLastMsgRef(messageRef)
-  }, [byUser])
+  // useEffect(() => {
+  //   if (setLastMsgRef) setLastMsgRef(messageRef)
+  // }, [byUser])
 
   if (!byUser) return <MessagePreviewLoader message={message} />
 

@@ -41,8 +41,7 @@ const ConversationPage = (props: Props) => {
         setConversation(updatedConversation)
         setMembers(conversationMembers)
 
-        // Handle unread messages
-        console.log('new message')
+        // TODO: Handle unread messages
       }
     )
 
@@ -91,7 +90,6 @@ const ConversationPage = (props: Props) => {
 
         <MessageList
           messages={conversation.messages}
-          scrollToLastMessage={scrollToLastMessage}
           setLastMsgRef={setLastMsgRef}
         />
         <MessageBox
