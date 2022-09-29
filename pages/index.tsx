@@ -6,6 +6,7 @@ import Hero3 from '../public/assets/svgs/hero3.svg'
 import { BiLogIn } from 'react-icons/bi'
 import { useUser } from '../context/UserContext'
 import HomePageButton from '../components/HomePageButton'
+import HomePageHeader from '../components/HomePageHeader'
 
 const Home: NextPage = () => {
   const router = useRouter()
@@ -13,29 +14,7 @@ const Home: NextPage = () => {
 
   return (
     <main className="bg-discord-blue-200 h-full relative flex flex-col">
-      <header className="flex justify-center gap-12 text-white font-bold text-2xl p-10 mb-40">
-        <a
-          className="hover:underline"
-          target="_blank"
-          href="https://github.com/Eugee29"
-        >
-          GitHub
-        </a>
-        <a
-          className="hover:underline"
-          target="_blank"
-          href="https://www.linkedin.com/in/uri-gruda/"
-        >
-          LinkedIn
-        </a>
-        <a
-          className="hover:underline"
-          target="_blank"
-          href="https://github.com/Eugee29/discord-clone"
-        >
-          Project Repository
-        </a>
-      </header>
+      <HomePageHeader />
       <div className="h-full flex flex-col items-center gap-12 flex-1">
         <h1 className="text-9xl font-ginto-nord uppercase text-white z-10">
           Discord
