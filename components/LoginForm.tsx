@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import DiscordInput from './DiscordInput'
-import DiscordButton from './DiscordButton'
+import FormButton from './FormButton'
 
 interface Props {
   onLogin: (username: string, password: string) => Promise<void>
@@ -80,7 +80,7 @@ const LoginForm = ({ onLogin }: Props) => {
           onChange={formik.handleChange}
         />
       </div>
-      <DiscordButton isLoading={isSubmitting}>Log In</DiscordButton>
+      <FormButton isLoading={isSubmitting}>Log In</FormButton>
       <h3 className="text-sm text-discord-gray-30">
         Need an account?{' '}
         <Link href="/register">

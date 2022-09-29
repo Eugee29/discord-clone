@@ -1,5 +1,6 @@
 import { useFormik } from 'formik'
-import { useRef } from 'react'
+import { useRouter } from 'next/router'
+import { useEffect, useRef } from 'react'
 import * as yup from 'yup'
 
 interface Props {
@@ -9,6 +10,11 @@ interface Props {
 
 const MessageBox = ({ placeholder, onSendMessage }: Props) => {
   const messageRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
+
+  useEffect(() => {
+    messageRef.current?.focus()
+  }, [router])
 
   const formik = useFormik({
     initialErrors: {},

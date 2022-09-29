@@ -9,6 +9,7 @@ module.exports = {
   theme: {
     fontFamily: {
       ginto: ['ABC Ginto Normal', ...defaultTheme.fontFamily.sans],
+      ['ginto-nord']: ['ABC Ginto Nord', ...defaultTheme.fontFamily.sans],
     },
     extend: {
       fontFamily: {
@@ -29,6 +30,7 @@ module.exports = {
             400: '#2F3136',
             500: '#32353B',
             550: '#292B2F',
+            560: '#23272A',
             600: '#18191C',
           },
           blue: {

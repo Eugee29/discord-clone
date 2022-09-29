@@ -6,7 +6,7 @@ interface Props {
   children?: ReactNode
 }
 
-const DiscordButton = ({ isLoading, children }: Props) => {
+const FormButton = ({ isLoading, children }: Props) => {
   return (
     <button
       className="w-full mb-2 bg-discord-blue-200 p-[0.625em] text-white rounded transition-colors enabled:hover:bg-discord-blue-250"
@@ -18,4 +18,4 @@ const DiscordButton = ({ isLoading, children }: Props) => {
   )
 }
 
-export default DiscordButton
+export default FormButton
