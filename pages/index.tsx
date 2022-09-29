@@ -12,9 +12,32 @@ const Home: NextPage = () => {
   const { user } = useUser()
 
   return (
-    <main className="bg-discord-blue-200 h-full relative">
-      <div className="h-full flex flex-col items-center gap-12 ">
-        <h1 className="text-9xl font-ginto-nord uppercase text-white z-10 mt-52">
+    <main className="bg-discord-blue-200 h-full relative flex flex-col">
+      <header className="flex justify-center gap-12 text-white font-bold text-2xl p-10 mb-40">
+        <a
+          className="hover:underline"
+          target="_blank"
+          href="https://github.com/Eugee29"
+        >
+          GitHub
+        </a>
+        <a
+          className="hover:underline"
+          target="_blank"
+          href="https://www.linkedin.com/in/uri-gruda/"
+        >
+          LinkedIn
+        </a>
+        <a
+          className="hover:underline"
+          target="_blank"
+          href="https://github.com/Eugee29/discord-clone"
+        >
+          Project Repository
+        </a>
+      </header>
+      <div className="h-full flex flex-col items-center gap-12 flex-1">
+        <h1 className="text-9xl font-ginto-nord uppercase text-white z-10">
           Discord
         </h1>
         <p className="text-center text-white text-2xl">
