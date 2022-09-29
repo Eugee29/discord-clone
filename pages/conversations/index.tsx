@@ -11,6 +11,7 @@ import { useUser } from '../../context/UserContext'
 import { useRouter } from 'next/router'
 import { conversationService } from '../../services/conversation.service'
 import Meta from '../../components/Meta'
+import { getAuth } from 'firebase/auth'
 
 interface Props {
   users: DiscordUser[]
@@ -58,15 +59,14 @@ const ConversationsPage = ({ users }: Props) => {
       </Meta>
       <div className="flex-1 bg-discord-gray-300">
         <ConversationHeader
+          title="Users"
           icon={
             <BsFillPeopleFill
               aria-label="people"
               className="w-5 h-5 text-discord-gray-50"
             />
           }
-          title="Users"
         />
-
         <div className="p-5">
           <UserFilter
             value={displayNameFilter}

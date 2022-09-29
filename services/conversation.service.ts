@@ -3,7 +3,6 @@ import { Conversation } from '../models/conversation.model'
 import { DiscordUser } from '../models/discord-user.model'
 import { Message } from '../models/message.model'
 import { dbService } from './db.service'
-import { userService } from './user.service'
 
 export const conversationService = {
   getConversation,

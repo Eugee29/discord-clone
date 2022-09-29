@@ -40,8 +40,6 @@ const ConversationPage = (props: Props) => {
         )
         setConversation(updatedConversation)
         setMembers(conversationMembers)
-
-        // TODO: Handle unread messages
       }
     )
 

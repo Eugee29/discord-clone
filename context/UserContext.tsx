@@ -31,9 +31,8 @@ export const UserProvider = ({ children }: Props) => {
     const authUnsubscribe = authService.onUserChange(
       async (userCredentials) => {
         if (!userCredentials) {
-          // User is logged out
           if (userUnsubscribe) userUnsubscribe()
-          return setUser(null)
+          return setUser(null) // User is logged out
         }
         setUser(undefined) // Loading user
         const user = await userService.getUser(userCredentials.uid)

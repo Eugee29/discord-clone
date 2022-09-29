@@ -30,6 +30,12 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'ABC Ginto Nord';
+  src: url('/assets/fonts/ginto/abc-ginto-nord.woff');
+  font-display: swap;
+}
+
 /* SCROLLBAR */
 ::-webkit-scrollbar {
   width: 8px;

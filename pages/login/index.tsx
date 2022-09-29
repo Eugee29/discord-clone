@@ -9,7 +9,7 @@ const LoginPage = () => {
   const router = useRouter()
 
   useEffect(() => {
-    if (user) router.push('/conversations')
+    if (user !== null) router.push('/conversations')
   }, [user])
 
   const onLogin = async (username: string, password: string) => {

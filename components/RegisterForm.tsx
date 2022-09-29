@@ -2,7 +2,7 @@ import { useFormik } from 'formik'
 import Link from 'next/link'
 import { useState } from 'react'
 import * as yup from 'yup'
-import DiscordButton from './DiscordButton'
+import FormButton from './FormButton'
 import DiscordInput from './DiscordInput'
 
 interface Props {
@@ -88,7 +88,7 @@ const RegisterForm = ({ onRegister }: Props) => {
           onChange={formik.handleChange}
         />
       </div>
-      <DiscordButton isLoading={isSubmitting}>Register</DiscordButton>
+      <FormButton isLoading={isSubmitting}>Register</FormButton>
       <Link href="/login">
         <a className="text-sm text-discord-blue-100">
           Already have an account?
