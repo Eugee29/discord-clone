@@ -12,6 +12,8 @@ const Home: NextPage = () => {
   const router = useRouter()
   const { user } = useUser()
 
+  console.log('Discord')
+
   return (
     <main className="bg-discord-blue-200 h-full relative flex flex-col">
       <HomePageHeader />
