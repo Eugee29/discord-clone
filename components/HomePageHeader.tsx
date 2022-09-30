@@ -23,7 +23,7 @@ const HomePageHeader = () => {
         rel="noreferrer"
         href="https://github.com/Eugee29/discord-clone"
       >
-        Project Repository
+        Source Code
       </a>
     </header>
   )
