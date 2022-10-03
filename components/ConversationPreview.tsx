@@ -24,7 +24,7 @@ const ConversationPreview = ({ conversation }: Props) => {
       )
       setMembers(conversationMembers)
     })()
-  }, [])
+  }, [conversation.membersIds])
 
   if (!members) return <></>
 

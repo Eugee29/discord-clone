@@ -28,7 +28,7 @@ const ConversationPage = (props: Props) => {
   const [lastMsgRef, setLastMsgRef] = useState<RefObject<HTMLDivElement>>()
 
   useEffect(() => {
-    scrollToLastMessage()
+    lastMsgRef?.current?.scrollIntoView()
   }, [lastMsgRef])
 
   useEffect(() => {
@@ -51,10 +51,6 @@ const ConversationPage = (props: Props) => {
       <div className="flex-1 flex flex-col bg-discord-gray-300 max-h-screen" />
     )
 
-  function scrollToLastMessage(options?: ScrollIntoViewOptions) {
-    lastMsgRef?.current?.scrollIntoView(options)
-  }
-
   const onSendMessage = async (messageText: string) => {
     const message = {
       content: messageText,
@@ -75,7 +71,7 @@ const ConversationPage = (props: Props) => {
         <title>Discord | {(members.length <= 2 ? '@' : '') + title}</title>
       </Meta>
 
-      <main className="flex-1 flex flex-col bg-discord-gray-300 max-h-screen">
+      <main className="flex-1 flex flex-col bg-discord-gray-300">
         <ConversationHeader
           icon={
             <SiMaildotru

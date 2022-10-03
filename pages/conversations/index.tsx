@@ -57,7 +57,8 @@ const ConversationsPage = ({ users }: Props) => {
       <Meta>
         <title>Discord | Users</title>
       </Meta>
-      <div className="flex-1 bg-discord-gray-300">
+
+      <main className="flex-1 flex flex-col bg-discord-gray-300">
         <ConversationHeader
           title="Users"
           icon={
@@ -67,17 +68,14 @@ const ConversationsPage = ({ users }: Props) => {
             />
           }
         />
-        <div className="p-5">
-          <UserFilter
-            value={displayNameFilter}
-            setValue={setDisplayNameFilter}
-          />
-          <h1 className="py-4 px-3 font-ginto uppercase text-xs text-discord-gray-20">
-            All users — {usersToShow.length}
-          </h1>
-          <UserList users={usersToShow} startConversation={startConversation} />
-        </div>
-      </div>
+        {/* <div className="p-5"> */}
+        <UserFilter value={displayNameFilter} setValue={setDisplayNameFilter} />
+        <h1 className="py-4 px-3 font-ginto uppercase text-xs text-discord-gray-20 mx-5">
+          All users — {usersToShow.length}
+        </h1>
+        <UserList users={usersToShow} startConversation={startConversation} />
+        {/* </div> */}
+      </main>
     </>
   )
 }

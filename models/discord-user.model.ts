@@ -5,4 +5,5 @@ export interface DiscordUser {
   displayName: string
   photoURL: string
   conversations: Conversation[]
+  creationTime: string
 }

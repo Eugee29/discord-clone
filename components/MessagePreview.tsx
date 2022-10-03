@@ -31,11 +31,7 @@ const MessagePreview = ({ message, setLastMsgRef }: Props) => {
       if (setLastMsgRef) setLastMsgRef(messageRef)
       setByUser(user)
     })()
-  }, [])
-
-  // useEffect(() => {
-  //   if (setLastMsgRef) setLastMsgRef(messageRef)
-  // }, [byUser])
+  }, [message.byUserId, setLastMsgRef])
 
   if (!byUser) return <MessagePreviewLoader message={message} />
 
