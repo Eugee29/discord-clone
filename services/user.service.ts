@@ -21,6 +21,7 @@ async function addUser(user: User) {
       conversations: [],
       photoURL: user.photoURL,
       displayName: user.displayName,
+      creationTime: user.metadata.creationTime,
     },
     COLLECTION,
     user.uid

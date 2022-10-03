@@ -34,9 +34,13 @@ export const UserProvider = ({ children }: Props) => {
           if (userUnsubscribe) userUnsubscribe()
           return setUser(null) // User is logged out
         }
+
         setUser(undefined) // Loading user
+
         const user = await userService.getUser(userCredentials.uid)
+
         setUser(user) // User is logged in
+
         userUnsubscribe = userService.subscribeToUser(user.id, (updatedUser) =>
           setUser(updatedUser)
         )

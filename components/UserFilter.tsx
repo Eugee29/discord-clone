@@ -17,7 +17,7 @@ const UserFilter = ({ value, setValue }: Props) => {
   }
 
   return (
-    <div className="mx-3 mb-5 flex bg-black bg-opacity-40 rounded">
+    <div className="mx-8 my-5 flex bg-black bg-opacity-40 rounded">
       <input
         className="flex-1 px-2 py-1  outline-none bg-transparent text-discord-gray-10"
         type="text"
