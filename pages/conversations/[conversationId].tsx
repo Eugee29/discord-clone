@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import { ReactNode, RefObject, useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { SiMaildotru } from 'react-icons/si'
 import ConversationHeader from '../../components/ConversationHeader'
 import MessageBox from '../../components/MessageBox'
@@ -25,11 +25,6 @@ const ConversationPage = (props: Props) => {
   const [conversation, setConversation] = useState<Conversation>(
     props.conversation
   )
-  const [lastMsgRef, setLastMsgRef] = useState<RefObject<HTMLDivElement>>()
-
-  useEffect(() => {
-    lastMsgRef?.current?.scrollIntoView()
-  }, [lastMsgRef])
 
   useEffect(() => {
     const unsubscribe = conversationService.subscribeToConversation(
@@ -82,10 +77,7 @@ const ConversationPage = (props: Props) => {
           title={title}
         />
 
-        <MessageList
-          messages={conversation.messages}
-          setLastMsgRef={setLastMsgRef}
-        />
+        <MessageList messages={[...conversation.messages].reverse()} />
         <MessageBox
           placeholder={(members.length <= 2 ? '@' : '') + title}
           onSendMessage={onSendMessage}
