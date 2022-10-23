@@ -4,7 +4,7 @@ import { BsFillPeopleFill } from 'react-icons/bs'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Conversation } from '../models/conversation.model'
-import { authService } from '../services/auth.service'
+
 import SidebarFooter from './SidebarFooter'
 
 interface Props {

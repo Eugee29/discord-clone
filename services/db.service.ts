@@ -33,8 +33,6 @@ async function updateItem(
   key: string,
   updatedValue: Partial<unknown>
 ) {
-  console.log('update')
-
   const itemRef = doc(db, fromCollection, key)
   await updateDoc(itemRef, updatedValue)
 }

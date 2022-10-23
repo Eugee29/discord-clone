@@ -13,13 +13,14 @@ const Layout = ({ children }: Props) => {
 
   useEffect(() => {
     if (user === null) router.push('/login')
+    console.log('run')
   }, [user])
 
   if (!user) return <div className="h-full bg-discord-gray-300" />
 
   return (
     <div className="max-h-screen h-full flex">
-      <Sidebar conversations={user?.conversations || []} />
+      <Sidebar conversations={user.conversations} />
       {children}
     </div>
   )
