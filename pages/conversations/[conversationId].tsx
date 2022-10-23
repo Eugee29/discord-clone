@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next'
+// import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { ReactNode, useEffect, useState } from 'react'
 import { SiMaildotru } from 'react-icons/si'
@@ -14,17 +14,15 @@ import { Message } from '../../models/message.model'
 import { conversationService } from '../../services/conversation.service'
 import { userService } from '../../services/user.service'
 
-interface Props {
-  conversation: Conversation
-}
+// interface Props {
+//   conversation: Conversation
+// }
 
-const ConversationPage = (props: Props) => {
+const ConversationPage = () => {
   const { user } = useUser()
   const router = useRouter()
   const [members, setMembers] = useState<DiscordUser[] | null>(null)
-  const [conversation, setConversation] = useState<Conversation>(
-    props.conversation
-  )
+  const [conversation, setConversation] = useState<Conversation | null>(null)
 
   useEffect(() => {
     const unsubscribe = conversationService.subscribeToConversation(
@@ -91,13 +89,13 @@ ConversationPage.getLayout = function getLayout(page: ReactNode) {
   return <Layout>{page}</Layout>
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { conversationId } = context.query
-  const conversation = await conversationService.getConversation(
-    conversationId as string
-  )
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const { conversationId } = context.query
+//   const conversation = await conversationService.getConversation(
+//     conversationId as string
+//   )
 
-  return { props: { conversation } }
-}
+//   return { props: { conversation } }
+// }
 
 export default ConversationPage
