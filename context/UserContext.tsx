@@ -1,5 +1,6 @@
 import { Unsubscribe } from 'firebase/auth'
 import {
+  Context,
   createContext,
   Dispatch,
   ReactNode,
@@ -13,20 +14,25 @@ import { DiscordUser } from '../models/discord-user.model'
 import { authService } from '../services/auth.service'
 import { userService } from '../services/user.service'
 
-const UserContext = createContext<{
+let UserContext: Context<{
   user: DiscordUser | null | undefined
   setUser: Dispatch<SetStateAction<DiscordUser | null | undefined>>
-}>({ user: null, setUser: () => {} })
+}>
 
 interface Props {
   children: ReactNode
 }
 
 export const UserProvider = ({ children }: Props) => {
-  const [user, setUser] = useState<DiscordUser | null>()
+  const [user, setUser] = useState<DiscordUser | null | undefined>()
+
+  UserContext = createContext({
+    user,
+    setUser,
+  })
 
   useEffect(() => {
-    let subscriptions: Unsubscribe[] = []
+    const subscriptions: Unsubscribe[] = []
     let userUnsubscribe: Unsubscribe
     const authUnsubscribe = authService.onUserChange(
       async (userCredentials) => {
@@ -34,13 +40,9 @@ export const UserProvider = ({ children }: Props) => {
           if (userUnsubscribe) userUnsubscribe()
           return setUser(null) // User is logged out
         }
-
         setUser(undefined) // Loading user
-
         const user = await userService.getUser(userCredentials.uid)
-
-        setUser(user) // User is logged in
-
+        // User is logged in
         userUnsubscribe = userService.subscribeToUser(user.id, (updatedUser) =>
           setUser(updatedUser)
         )

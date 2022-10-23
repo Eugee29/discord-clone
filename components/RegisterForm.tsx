@@ -40,6 +40,7 @@ const RegisterForm = ({ onRegister }: Props) => {
       setIsSubmitting(true)
       try {
         await onRegister(values.email, values.password, values.username)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         setIsSubmitting(false)
         if (error === 'auth/email-already-in-use') {

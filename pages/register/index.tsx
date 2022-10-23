@@ -20,6 +20,7 @@ const RegisterPage = () => {
     try {
       await authService.register(email, password, displayName)
       router.push('/conversations')
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       throw error.code
     }

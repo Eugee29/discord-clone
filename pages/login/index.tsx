@@ -16,6 +16,7 @@ const LoginPage = () => {
     try {
       await authService.login(username, password)
       router.push('/conversations')
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       throw error.code
     }

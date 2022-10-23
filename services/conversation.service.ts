@@ -31,7 +31,7 @@ async function createConversation(membersIds: string[]): Promise<Conversation> {
 
 function subscribeToConversation(
   conversationId: string,
-  onChange: (conversation: Conversation) => any
+  onChange: (conversation: Conversation) => unknown
 ) {
   return dbService.subscribeToItem(COLLECTION, conversationId, onChange)
 }

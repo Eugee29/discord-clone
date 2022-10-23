@@ -11,7 +11,6 @@ import { useUser } from '../../context/UserContext'
 import { useRouter } from 'next/router'
 import { conversationService } from '../../services/conversation.service'
 import Meta from '../../components/Meta'
-import { getAuth } from 'firebase/auth'
 
 interface Props {
   users: DiscordUser[]
@@ -23,27 +22,33 @@ const ConversationsPage = ({ users }: Props) => {
   const { user, setUser } = useUser()
 
   const startConversation = async (withUserId: string) => {
+    if (!user) return
     // Check if the user already has a conversation with 'withUser'
-    let conversation = user?.conversations.find(
+    const existingConversation = user.conversations.find(
       (conversation) =>
         conversation.membersIds.length === 2 &&
         conversation.membersIds.find((memberId) => memberId === withUserId)
     )
+    if (existingConversation)
+      return router.push(`/conversations/${existingConversation.id}`)
 
     // If the user doesn't have a conversation with 'withUser' create a new one
-    if (!conversation) {
-      const membersIds: string[] = [withUserId, user!.id]
-      conversation = await conversationService.createConversation(membersIds)
-      membersIds.forEach(
-        async (memberId) =>
-          await userService.addConversationToUser(memberId, conversation!)
-      )
-      setUser({
-        ...user,
-        conversations: [...user!.conversations, conversation],
-      } as DiscordUser)
-    }
-    router.push(`/conversations/${conversation.id}`)
+    const membersIds: string[] = [withUserId, user.id]
+    const newConversation = await conversationService.createConversation(
+      membersIds
+    )
+
+    membersIds.forEach(
+      async (memberId) =>
+        await userService.addConversationToUser(memberId, newConversation)
+    )
+
+    setUser({
+      ...user,
+      conversations: [...user.conversations, newConversation],
+    } as DiscordUser)
+
+    router.push(`/conversations/${newConversation.id}`)
   }
 
   const usersToShow = users.filter(
@@ -68,13 +73,12 @@ const ConversationsPage = ({ users }: Props) => {
             />
           }
         />
-        {/* <div className="p-5"> */}
+
         <UserFilter value={displayNameFilter} setValue={setDisplayNameFilter} />
         <h1 className="py-4 px-3 font-ginto uppercase text-xs text-discord-gray-20 mx-5">
           All users — {usersToShow.length}
         </h1>
         <UserList users={usersToShow} startConversation={startConversation} />
-        {/* </div> */}
       </main>
     </>
   )

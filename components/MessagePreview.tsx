@@ -1,13 +1,5 @@
 import Image from 'next/image'
-import {
-  Dispatch,
-  LegacyRef,
-  RefObject,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
+import { LegacyRef, useEffect, useRef, useState } from 'react'
 import { DiscordUser } from '../models/discord-user.model'
 import { Message } from '../models/message.model'
 import { userService } from '../services/user.service'
@@ -16,22 +8,19 @@ import MessagePreviewLoader from './MessagePreviewLoader'
 
 interface Props {
   message: Message
-  setLastMsgRef?: Dispatch<
-    SetStateAction<RefObject<HTMLDivElement> | undefined>
-  >
 }
 
-const MessagePreview = ({ message, setLastMsgRef }: Props) => {
+const MessagePreview = ({ message }: Props) => {
   const [byUser, setByUser] = useState<DiscordUser | null>(null)
   const messageRef: LegacyRef<HTMLDivElement> = useRef(null)
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-extra-semi
     ;(async () => {
       const user = await userService.getUser(message.byUserId)
-      if (setLastMsgRef) setLastMsgRef(messageRef)
       setByUser(user)
     })()
-  }, [message.byUserId, setLastMsgRef])
+  }, [message.byUserId])
 
   if (!byUser) return <MessagePreviewLoader message={message} />
 

@@ -18,6 +18,7 @@ const ConversationPreview = ({ conversation }: Props) => {
   const [members, setMembers] = useState<DiscordUser[] | null>(null)
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-extra-semi
     ;(async () => {
       const conversationMembers = await userService.getMultipleUsers(
         conversation.membersIds
@@ -31,7 +32,7 @@ const ConversationPreview = ({ conversation }: Props) => {
   const isActive = router.query.conversationId === conversation.id
 
   const { title, photoURL } = conversationService.getConversationTitleAndPhoto(
-    members.filter((member) => member.id != user!.id)
+    members.filter((member) => member.id != user?.id)
   )
 
   return (

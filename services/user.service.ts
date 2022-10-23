@@ -55,12 +55,15 @@ async function addConversationToUser(
   })
 }
 
-function subscribeToUser(userId: string, onChange: (user: DiscordUser) => any) {
+function subscribeToUser(
+  userId: string,
+  onChange: (user: DiscordUser) => unknown
+) {
   return dbService.subscribeToItem(COLLECTION, userId, onChange)
 }
 
 async function getAllUsers(): Promise<DiscordUser[]> {
-  const users = await dbService.getAllItems(COLLECTION)
+  const users = (await dbService.getAllItems(COLLECTION)) as DiscordUser[]
   return users.map((user) => ({
     id: user.id,
     displayName: user.displayName,

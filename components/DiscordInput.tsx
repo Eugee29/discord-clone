@@ -3,7 +3,7 @@ interface Props {
   type?: string
   name?: string
   autoComplete?: string
-  value?: any
+  value?: string | number | readonly string[] | undefined
   error?: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }

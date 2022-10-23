@@ -17,7 +17,7 @@ export const dbService = {
   updateItem,
 }
 
-async function addItem(item: any, fromCollection: string, key: string) {
+async function addItem(item: unknown, fromCollection: string, key: string) {
   await setDoc(doc(db, fromCollection, key), item)
 }
 
@@ -31,8 +31,10 @@ async function getItem(fromCollection: string, key: string) {
 async function updateItem(
   fromCollection: string,
   key: string,
-  updatedValue: any
+  updatedValue: Partial<unknown>
 ) {
+  console.log('update')
+
   const itemRef = doc(db, fromCollection, key)
   await updateDoc(itemRef, updatedValue)
 }
@@ -40,13 +42,15 @@ async function updateItem(
 function subscribeToItem(
   fromCollection: string,
   key: string,
-  onChange: (parameters: any) => any
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onChange: (parameters: any) => unknown
 ) {
   return onSnapshot(doc(db, fromCollection, key), (doc) => onChange(doc.data()))
 }
 
 async function getAllItems(fromCollection: string) {
-  const items: any[] = []
+  const items: unknown[] = []
   const querySnapshot = await getDocs(collection(db, fromCollection))
   querySnapshot.forEach((doc) =>
     items.push({

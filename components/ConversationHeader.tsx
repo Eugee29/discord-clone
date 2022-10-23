@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-import { IconType } from 'react-icons/lib'
 
 interface Props {
   icon: ReactNode
