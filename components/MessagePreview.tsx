@@ -15,6 +15,7 @@ const MessagePreview = ({ message }: Props) => {
   const messageRef: LegacyRef<HTMLDivElement> = useRef(null)
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-extra-semi
     ;(async () => {
       const user = await userService.getUser(message.byUserId)
       setByUser(user)

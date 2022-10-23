@@ -6,6 +6,7 @@ import { NextPage } from 'next'
 import { UserProvider } from '../context/UserContext'
 import Meta from '../components/Meta'
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
 }

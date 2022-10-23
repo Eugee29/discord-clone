@@ -31,7 +31,7 @@ const ConversationPage = (props: Props) => {
       router.query.conversationId as string,
       async (updatedConversation) => {
         const conversationMembers = await userService.getMultipleUsers(
-          updatedConversation.membersIds
+          updatedConversation?.membersIds
         )
         setConversation(updatedConversation)
         setMembers(conversationMembers)
@@ -53,11 +53,11 @@ const ConversationPage = (props: Props) => {
       sentAt: Date.now(),
     } as Message
 
-    await conversationService.sendMessage(conversation!.id, message)
+    await conversationService.sendMessage(conversation.id, message)
   }
 
   const { title } = conversationService.getConversationTitleAndPhoto(
-    members.filter((member) => member.id != user!.id)
+    members.filter((member) => member.id != user?.id)
   )
 
   return (

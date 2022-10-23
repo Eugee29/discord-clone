@@ -31,6 +31,7 @@ const LoginForm = ({ onLogin }: Props) => {
       setIsSubmitting(true)
       try {
         await onLogin(values.email, values.password)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         setIsSubmitting(false)
         let errorMessage
