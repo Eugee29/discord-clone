@@ -1,5 +1,6 @@
 import {
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -12,6 +13,7 @@ import { db } from '../firebase.config'
 export const dbService = {
   addItem,
   getItem,
+  deleteItem,
   subscribeToItem,
   getAllItems,
   updateItem,
@@ -26,6 +28,10 @@ async function getItem(fromCollection: string, key: string) {
   const docSnap = await getDoc(docRef)
   if (docSnap.exists()) return docSnap.data()
   return null
+}
+
+async function deleteItem(fromCollection: string, key: string) {
+  await deleteDoc(doc(db, fromCollection, key))
 }
 
 async function updateItem(

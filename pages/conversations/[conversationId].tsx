@@ -14,10 +14,6 @@ import { Message } from '../../models/message.model'
 import { conversationService } from '../../services/conversation.service'
 import { userService } from '../../services/user.service'
 
-// interface Props {
-//   conversation: Conversation
-// }
-
 const ConversationPage = () => {
   const { user } = useUser()
   const router = useRouter()

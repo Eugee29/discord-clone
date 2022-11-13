@@ -40,8 +40,9 @@ export const UserProvider = ({ children }: Props) => {
         }
 
         setUser(undefined) // Loading user
-
-        const loadedUser = await userService.getUser(userCredentials.uid)
+        const loadedUser =
+          (await userService.getUser(userCredentials.uid)) ||
+          (await userService.addUser(userCredentials))
 
         // User is logged in
         userUnsubscribe = userService.subscribeToUser(
