@@ -6,4 +6,5 @@ export interface DiscordUser {
   photoURL: string
   conversations: Conversation[]
   creationTime: string
+  isAnonymous: boolean
 }

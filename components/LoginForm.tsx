@@ -7,9 +7,10 @@ import FormButton from './FormButton'
 
 interface Props {
   onLogin: (username: string, password: string) => Promise<void>
+  onGuestLogin: () => Promise<void>
 }
 
-const LoginForm = ({ onLogin }: Props) => {
+const LoginForm = ({ onLogin, onGuestLogin }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const formik = useFormik({
@@ -33,20 +34,38 @@ const LoginForm = ({ onLogin }: Props) => {
         await onLogin(values.email, values.password)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
-        setIsSubmitting(false)
         let errorMessage
         if (
           error === 'auth/wrong-password' ||
           error === 'auth/user-not-found'
         ) {
           errorMessage = 'Invalid email or password'
-        } else if (error === 'auth/too-many-requests')
+        } else if (error === 'auth/too-many-requests') {
           errorMessage = 'Too many requests, slow down'
+        } else {
+          errorMessage = 'An Unknown error has occurred'
+        }
+
         formik.errors.email = errorMessage
         formik.errors.password = errorMessage
+      } finally {
+        setIsSubmitting(false)
       }
     },
   })
+
+  const handleGuestLogin = async () => {
+    setIsSubmitting(true)
+    try {
+      await onGuestLogin()
+    } catch (err) {
+      const errorMessage = 'An Unknown error has occurred'
+      formik.errors.email = errorMessage
+      formik.errors.password = errorMessage
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <form
@@ -88,6 +107,10 @@ const LoginForm = ({ onLogin }: Props) => {
           <a className="text-discord-blue-100">Register</a>
         </Link>
       </h3>
+
+      <button type="button" onClick={handleGuestLogin} disabled={isSubmitting}>
+        <a className="text-discord-blue-100">Or continue as guest</a>
+      </button>
     </form>
   )
 }

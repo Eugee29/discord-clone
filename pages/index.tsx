@@ -19,9 +19,7 @@ const Home: NextPage = () => {
         <h1 className="text-9xl font-ginto-nord uppercase text-white z-10">
           Discord
         </h1>
-        <p className="text-center text-white text-2xl">
-          Receive and send text messages to any user, at any time
-        </p>
+        <p className="text-center text-white text-2xl">{'( Clone )'}</p>
         {user !== null ? (
           <HomePageButton
             isDark={true}
