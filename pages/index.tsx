@@ -15,11 +15,13 @@ const Home: NextPage = () => {
   return (
     <main className="bg-discord-blue-200 h-full relative flex flex-col">
       <HomePageHeader />
-      <div className="h-full flex flex-col items-center gap-12 flex-1">
-        <h1 className="text-9xl font-ginto-nord uppercase text-white z-10">
+      <div className="h-full flex flex-col items-center gap1-8 flex-1">
+        <h1 className="text-[15vw] md:text-9xl font-ginto-nord uppercase text-white z-10">
           Discord
         </h1>
-        <p className="text-center text-white text-2xl">{'( Clone )'}</p>
+        <p className="text-[5vw] text-center text-white md:text-4xl mb-24 md:mb-12">
+          {'( Clone )'}
+        </p>
         {user !== null ? (
           <HomePageButton
             isDark={true}
@@ -28,7 +30,7 @@ const Home: NextPage = () => {
             Start Chatting
           </HomePageButton>
         ) : (
-          <div className="flex gap-12 z-10">
+          <div className="flex flex-col sm:flex-row gap-12 z-10 self-stretch sm:self-center mb-auto">
             <HomePageButton onClick={() => router.push('/login')}>
               <BiLogIn />
               Login
@@ -44,8 +46,8 @@ const Home: NextPage = () => {
       </div>
 
       <Hero1 className="absolute bottom-0 w-full" />
-      <Hero2 className="absolute bottom-0 right-0" />
-      <Hero3 className="absolute bottom-0 left-0" />
+      <Hero2 className="absolute bottom-0 right-0 w-5/12 hidden md:block" />
+      <Hero3 className="absolute bottom-0 left-0 w-5/12 hidden md:block" />
     </main>
   )
 }
