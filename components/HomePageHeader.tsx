@@ -1,6 +1,6 @@
 const HomePageHeader = () => {
   return (
-    <header className="flex justify-center gap-12 text-white font-bold text-2xl p-10 mb-40">
+    <header className="flex justify-center gap-8 sm:gap-12 text-white font-bold sm:text-2xl text-[6vw] py-10 mb-14 md:mb-40">
       <a
         className="hover:underline"
         target="_blank"
