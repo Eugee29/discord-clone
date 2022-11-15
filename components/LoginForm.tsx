@@ -69,7 +69,7 @@ const LoginForm = ({ onLogin, onGuestLogin }: Props) => {
 
   return (
     <form
-      className="bg-discord-gray-300 p-8 rounded w-[30em] shadow-lg"
+      className="credential-form"
       onSubmit={formik.handleSubmit}
     >
       <div className="mb-5">
