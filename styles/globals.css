@@ -1,3 +1,9 @@
+/* GENERAL */
+html,
+body {
+  overflow: hidden;
+}
+
 /* TAILWIND */
 @tailwind base;
 @tailwind components;
@@ -5,40 +11,35 @@
 
 /* FONTS */
 @font-face {
-  font-family: 'Whitney';
-  src: url('/assets/fonts/whitney/whitney-normal.woff2');
+  font-family: "Whitney";
+  src: url("/assets/fonts/whitney/whitney-normal.woff2");
   font-weight: normal;
 }
 
 @font-face {
-  font-family: 'Whitney';
-  src: url('/assets/fonts/whitney/whitney-light.woff2');
+  font-family: "Whitney";
+  src: url("/assets/fonts/whitney/whitney-light.woff2");
   font-weight: 300;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'ABC Ginto Normal';
-  src: url('/assets/fonts/ginto/abc-ginto-normal.woff2');
+  font-family: "ABC Ginto Normal";
+  src: url("/assets/fonts/ginto/abc-ginto-normal.woff2");
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'ABC Ginto Normal';
-  src: url('/assets/fonts/ginto/abc-ginto-italic.woff2');
+  font-family: "ABC Ginto Normal";
+  src: url("/assets/fonts/ginto/abc-ginto-italic.woff2");
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'ABC Ginto Nord';
-  src: url('/assets/fonts/ginto/abc-ginto-nord.woff');
+  font-family: "ABC Ginto Nord";
+  src: url("/assets/fonts/ginto/abc-ginto-nord.woff");
   font-display: swap;
-}
-
-html,
-body {
-  overflow: hidden;
 }
 
 /* SCROLLBAR */
@@ -56,4 +57,11 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #202225;
   border-radius: 999px;
+}
+
+/* CUSTOM CLASSES */
+@layer base {
+  .credential-form {
+    @apply bg-discord-gray-300 p-8 sm:rounded sm:shadow-lg w-full sm:w-[30em] h-full sm:h-auto;
+  }
 }
