@@ -15,7 +15,7 @@ const MessageList = ({ messages }: Props) => {
 
   return (
     <ul
-      className="overflow-auto px-4 mt-auto flex flex-col-reverse mr-1 custom-scrollbar"
+      className="overflow-auto px-4 mt-auto flex flex-col-reverse mr-1 custom-scrollbar pt-2"
       ref={listRef}
     >
       {messages.map((message) => (

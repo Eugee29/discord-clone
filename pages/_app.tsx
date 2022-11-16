@@ -20,7 +20,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   return (
     <UserProvider>
       <Meta />
-      <div className="h-screen w-screen">
+      <div className="h-full w-full fixed">
         {getLayout(<Component {...pageProps} />)}
       </div>
     </UserProvider>

@@ -4,7 +4,7 @@ interface Props {
   message: Message
 }
 
-const MessagePreviewLoader = ({ message }: Props) => {
+const MessagePreviewSkeleton = ({ message }: Props) => {
   return (
     <div className="flex gap-4 py-0.5 mb-4 ">
       <div className="w-10 h-10 rounded-full bg-discord-gray-250 " />
@@ -24,4 +24,4 @@ const MessagePreviewLoader = ({ message }: Props) => {
   )
 }
 
-export default MessagePreviewLoader
+export default MessagePreviewSkeleton
