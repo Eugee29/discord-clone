@@ -1,4 +1,3 @@
-// import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { ReactNode, useEffect, useState } from 'react'
 import { SiMaildotru } from 'react-icons/si'
@@ -21,6 +20,7 @@ const ConversationPage = () => {
   const [conversation, setConversation] = useState<Conversation | null>(null)
 
   useEffect(() => {
+    setConversation(null)
     const unsubscribe = conversationService.subscribeToConversation(
       router.query.conversationId as string,
       async (updatedConversation) => {
@@ -84,14 +84,5 @@ const ConversationPage = () => {
 ConversationPage.getLayout = function getLayout(page: ReactNode) {
   return <Layout>{page}</Layout>
 }
-
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const { conversationId } = context.query
-//   const conversation = await conversationService.getConversation(
-//     conversationId as string
-//   )
-
-//   return { props: { conversation } }
-// }
 
 export default ConversationPage

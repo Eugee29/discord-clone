@@ -1,7 +1,7 @@
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import DiscordInput from './DiscordInput'
 import FormButton from './FormButton'
 
@@ -68,10 +68,7 @@ const LoginForm = ({ onLogin, onGuestLogin }: Props) => {
   }
 
   return (
-    <form
-      className="credential-form"
-      onSubmit={formik.handleSubmit}
-    >
+    <form className="credential-form" onSubmit={formik.handleSubmit}>
       <div className="mb-5">
         <h1 className="text-white text-2xl font-semibold text-center mb-2 font-ginto">
           Welcome back!

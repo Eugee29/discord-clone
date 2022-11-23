@@ -39,8 +39,6 @@ const MessageBox = ({ placeholder, onSendMessage }: Props) => {
       className="bg-discord-gray-200 rounded-lg ml-4 mb-4 mr-4 flex flex"
       onSubmit={formik.handleSubmit}
       onKeyDown={(ev) => {
-        console.log(ev)
-
         if (ev.key === 'Enter' && !ev.shiftKey) {
           ev.preventDefault()
           formik.handleSubmit()
@@ -61,10 +59,10 @@ const MessageBox = ({ placeholder, onSendMessage }: Props) => {
         }}
       />
       <div
-        className="p-3 flex items-center border-l-2 border-l-discord-gray-300"
+        className="p-3 flex items-center border-l-2 border-l-discord-gray-300 cursor-pointer rounded-r-lg hover:bg-discord-gray-60"
         onClick={() => formik.handleSubmit()}
       >
-        <IoMdSend className="w-full  text-white" />
+        <IoMdSend className="w-full text-white" />
       </div>
     </form>
   )

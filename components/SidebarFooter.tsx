@@ -34,7 +34,7 @@ const SidebarFooter = () => {
       </button>
       <button
         onClick={() => authService.logout()}
-        className="rounded cursor-pointer h-full aspect-square flex items-center justify-center p-2 hover:bg-discord-gray-250 "
+        className="rounded cursor-pointer h-full aspect-square flex items-center justify-center p-2 hover:bg-discord-gray-250"
         title="Logout"
       >
         <BiLogOut
