@@ -20,7 +20,8 @@ const ConversationsPage = () => {
 
   useEffect(() => {
     ;(async () => {
-      setUsers(await userService.getAllUsers())
+      const loadedUsers = await userService.getAllUsers()
+      setUsers(loadedUsers.filter((user) => !user.isAnonymous))
     })()
   }, [])
 
