@@ -1,9 +1,9 @@
-import { ReactNode, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import ConversationHeader from '../../components/ConversationHeader'
 import Layout from '../../layouts/Layout'
 import { BsFillPeopleFill } from 'react-icons/bs'
 import { userService } from '../../services/user.service'
-import { GetServerSideProps } from 'next'
+
 import { DiscordUser } from '../../models/discord-user.model'
 import UserList from '../../components/UserList'
 import UserFilter from '../../components/UserFilter'
@@ -12,14 +12,18 @@ import { useRouter } from 'next/router'
 import { conversationService } from '../../services/conversation.service'
 import Meta from '../../components/Meta'
 
-interface Props {
-  users: DiscordUser[]
-}
-
-const ConversationsPage = ({ users }: Props) => {
+const ConversationsPage = () => {
   const [displayNameFilter, setDisplayNameFilter] = useState('')
+  const [users, setUsers] = useState<DiscordUser[] | null>(null)
   const router = useRouter()
-  const { user, setUser } = useUser()
+  const { user } = useUser()
+
+  useEffect(() => {
+    ;(async () => {
+      const loadedUsers = await userService.getAllUsers()
+      setUsers(loadedUsers.filter((user) => !user.isAnonymous))
+    })()
+  }, [])
 
   const startConversation = async (withUserId: string) => {
     if (!user) return
@@ -43,15 +47,10 @@ const ConversationsPage = ({ users }: Props) => {
         await userService.addConversationToUser(memberId, newConversation)
     )
 
-    setUser({
-      ...user,
-      conversations: [...user.conversations, newConversation],
-    } as DiscordUser)
-
     router.push(`/conversations/${newConversation.id}`)
   }
 
-  const usersToShow = users.filter(
+  const usersToShow = users?.filter(
     (currUser) =>
       new RegExp(displayNameFilter, 'i').test(currUser.displayName) &&
       currUser.id != user?.id
@@ -75,10 +74,17 @@ const ConversationsPage = ({ users }: Props) => {
         />
 
         <UserFilter value={displayNameFilter} setValue={setDisplayNameFilter} />
-        <h1 className="py-4 px-3 font-ginto uppercase text-xs text-discord-gray-20 mx-5">
-          All users — {usersToShow.length}
-        </h1>
-        <UserList users={usersToShow} startConversation={startConversation} />
+        {usersToShow && (
+          <>
+            <h1 className="py-4 px-3 font-ginto uppercase text-xs text-discord-gray-20 mx-5">
+              All users — {usersToShow.length}
+            </h1>
+            <UserList
+              users={usersToShow}
+              startConversation={startConversation}
+            />
+          </>
+        )}
       </main>
     </>
   )
@@ -86,11 +92,6 @@ const ConversationsPage = ({ users }: Props) => {
 
 ConversationsPage.getLayout = function getLayout(page: ReactNode) {
   return <Layout>{page}</Layout>
-}
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const users = JSON.parse(JSON.stringify(await userService.getAllUsers()))
-  return { props: { users } }
 }
 
 export default ConversationsPage

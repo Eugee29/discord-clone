@@ -4,7 +4,7 @@ import { DiscordUser } from '../models/discord-user.model'
 import { Message } from '../models/message.model'
 import { userService } from '../services/user.service'
 import { utilService } from '../services/util.service'
-import MessagePreviewLoader from './MessagePreviewLoader'
+import MessagePreviewSkeleton from './MessagePreviewSkeleton'
 
 interface Props {
   message: Message
@@ -22,7 +22,7 @@ const MessagePreview = ({ message }: Props) => {
     })()
   }, [message.byUserId])
 
-  if (!byUser) return <MessagePreviewLoader message={message} />
+  if (!byUser) return <MessagePreviewSkeleton message={message} />
 
   return (
     <div className="flex gap-4 py-0.5 mb-4" ref={messageRef}>
@@ -42,7 +42,7 @@ const MessagePreview = ({ message }: Props) => {
             {utilService.formatDate(message.sentAt)}
           </span>
         </h1>
-        <pre className="text-discord-gray-10 font-sans font-light">
+        <pre className="text-discord-gray-10 font-sans font-light overflow-hidden">
           {message.content}
         </pre>
       </div>

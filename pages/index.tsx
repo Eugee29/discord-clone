@@ -22,27 +22,38 @@ const Home: NextPage = () => {
         <p className="text-[5vw] text-center text-white md:text-4xl mb-24 md:mb-12">
           {'( Clone )'}
         </p>
-        {user !== null ? (
+        {/* {user !== null ? (
           <HomePageButton
             isDark={true}
             onClick={() => router.push('/conversations')}
           >
             Start Chatting
           </HomePageButton>
-        ) : (
-          <div className="flex flex-col sm:flex-row gap-12 z-10 self-stretch sm:self-center mb-auto">
-            <HomePageButton onClick={() => router.push('/login')}>
-              <BiLogIn />
-              Login
-            </HomePageButton>
+        ) : ( */}
+        <div className="flex flex-col sm:flex-row gap-12 z-10 self-stretch sm:self-center mb-auto">
+          {user !== null ? (
             <HomePageButton
               isDark={true}
-              onClick={() => router.push('/register')}
+              onClick={() => router.push('/conversations')}
             >
-              Register
+              Start Chatting
             </HomePageButton>
-          </div>
-        )}
+          ) : (
+            <>
+              <HomePageButton onClick={() => router.push('/login')}>
+                <BiLogIn />
+                Login
+              </HomePageButton>
+              <HomePageButton
+                isDark={true}
+                onClick={() => router.push('/register')}
+              >
+                Register
+              </HomePageButton>
+            </>
+          )}
+        </div>
+        {/* )} */}
       </div>
 
       <Hero1 className="absolute bottom-0 w-full" />

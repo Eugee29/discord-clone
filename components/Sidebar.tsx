@@ -9,15 +9,20 @@ import SidebarFooter from './SidebarFooter'
 
 interface Props {
   conversations: Conversation[] | null
+  isSidebarVisible: boolean
 }
 
-const Sidebar = ({ conversations }: Props) => {
+const Sidebar = ({ conversations, isSidebarVisible }: Props) => {
   const router = useRouter()
 
   const isActive = router.pathname === '/conversations'
 
   return (
-    <nav className="flex flex-col h-full basis-60 bg-discord-gray-400 ">
+    <nav
+      className={`flex flex-col h-full basis-60 bg-discord-gray-400 -translate-x-full transition-transform sm:shadow-none z-10 ${
+        isSidebarVisible && 'translate-x-0 w-3/4'
+      } sm:translate-x-0 fixed sm:relative shadow-2xl`}
+    >
       <SidebarHeader />
       <div className="p-2 flex-1">
         <Link href="/conversations">

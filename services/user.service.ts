@@ -76,5 +76,6 @@ async function getAllUsers(): Promise<DiscordUser[]> {
     id: user.id,
     displayName: user.displayName,
     photoURL: user.photoURL,
+    isAnonymous: user.isAnonymous,
   })) as DiscordUser[]
 }
