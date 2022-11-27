@@ -11,4 +11,4 @@ If you encounter any bugs, please let me know: uri2920@gmail.com
 
 ## Deployment
 
-Checkout the deployment here: https://tiscord.vercel.app/
+Checkout the deployment here: https://discordc.vercel.app/
