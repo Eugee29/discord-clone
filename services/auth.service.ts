@@ -6,7 +6,6 @@ import {
   signOut,
   updateProfile,
   User,
-  // deleteUser,
 } from 'firebase/auth'
 
 import { auth } from '../firebase.config'
@@ -39,10 +38,6 @@ async function login(email: string, password: string) {
 }
 
 async function logout() {
-  // if (auth.currentUser?.isAnonymous) {
-  //   await userService.deleteUser(auth.currentUser.uid)
-  //   await deleteUser(auth.currentUser)
-  // } else
   await signOut(auth)
 }
 

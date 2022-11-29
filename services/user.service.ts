@@ -9,6 +9,7 @@ export const userService = {
   deleteUser,
   getMultipleUsers,
   getAllUsers,
+  changeUserAvatar,
   addConversationToUser,
   subscribeToUser,
 }
@@ -53,12 +54,18 @@ async function getMultipleUsers(usersIds: string[]) {
   return Promise.all(users)
 }
 
+async function changeUserAvatar(userId: string, avatarURL: string) {
+  await dbService.updateItem(COLLECTION, userId, {
+    photoURL: avatarURL,
+  })
+}
+
 async function addConversationToUser(
   userId: string,
   conversation: Conversation
 ) {
   const user = await getUser(userId)
-  await dbService.updateItem(COLLECTION, user.id, {
+  await dbService.updateItem(COLLECTION, userId, {
     conversations: [...user.conversations, conversation],
   })
 }

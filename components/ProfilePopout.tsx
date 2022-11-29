@@ -1,6 +1,15 @@
 import Image from 'next/image'
-import { Dispatch, LegacyRef, SetStateAction, useEffect, useRef } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  LegacyRef,
+  SetStateAction,
+  useEffect,
+  useRef,
+} from 'react'
 import { useUser } from '../context/UserContext'
+import { cloudService } from '../services/cloud.service'
+import { userService } from '../services/user.service'
 
 interface Props {
   setIsOpen: Dispatch<SetStateAction<boolean>>
@@ -20,6 +29,17 @@ const ProfilePopout = ({ setIsOpen }: Props) => {
 
   if (!user) return <></>
 
+  const changeAvatar = async (ev: ChangeEvent<HTMLInputElement>) => {
+    if (!ev.target.files) return
+    try {
+      const imageFile = ev.target.files[0]
+      const avatarURL = await cloudService.uploadAvatar(imageFile)
+      await userService.changeUserAvatar(user.id, avatarURL)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   const creationTime = new Date(user.creationTime).toLocaleDateString('en-US', {
     month: 'short',
     day: '2-digit',
@@ -33,6 +53,21 @@ const ProfilePopout = ({ setIsOpen }: Props) => {
     >
       <div className="bg-discord-blue-250 rounded-t h-[3.75rem] px-4 relative">
         <div className="h-[92px] w-[92px] rounded-full border-[6px] border-discord-gray-550 absolute bottom-0 translate-y-1/2">
+          <input
+            id="file-input"
+            type="file"
+            onChange={changeAvatar}
+            accept="image/png, image/jpeg"
+            hidden
+          />
+          <label
+            htmlFor="file-input"
+            className="fixed flex justify-center items-center h-full w-full z-10 cursor-pointer opacity-0 hover:opacity-100 bg-black bg-opacity-50 rounded-full"
+          >
+            <h1 className="text-center text-white font-ginto uppercase text-xs border-black">
+              Change Avatar
+            </h1>
+          </label>
           <Image
             className="rounded-full"
             width="100%"
