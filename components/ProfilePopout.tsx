@@ -33,7 +33,7 @@ const ProfilePopout = ({ setIsOpen }: Props) => {
     if (!ev.target.files) return
     try {
       const imageFile = ev.target.files[0]
-      const avatarURL = await cloudService.uploadAvatar(imageFile)
+      const avatarURL = await cloudService.uploadFile('avatars', imageFile)
       await userService.changeUserAvatar(user.id, avatarURL)
     } catch (err) {
       console.error(err)
