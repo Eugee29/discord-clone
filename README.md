@@ -1,4 +1,4 @@
-![Banner]([https://imgur.com/NMPcIUi](https://i.imgur.com/NMPcIUi.png))
+![Banner](https://i.imgur.com/NMPcIUi.png)
 
 # Discord Clone
 
