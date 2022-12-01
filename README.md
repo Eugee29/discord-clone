@@ -1,6 +1,6 @@
-![Banner](https://i.imgur.com/NMPcIUi.png)
-
 # Discord Clone
+
+![Banner](https://i.imgur.com/NMPcIUi.png)
 
 A chat app inspired by Discord. Currently still in progress.  
 Created with Next.js, Tailwind and Firebase.  
