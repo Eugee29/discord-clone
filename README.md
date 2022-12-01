@@ -1,3 +1,5 @@
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
 # Discord Clone
 
 A chat app inspired by Discord. Currently still in progress.  
