@@ -9,18 +9,17 @@ You can try out the live version of Discord Clone at https://discordc.vercel.app
 ## Installation and Usage
 
 1. Clone the repository and navigate to the project directory:
-
+```bash
 git clone https://github.com/username/discord-clone.git
 cd discord-clone
-
-Copy code
+```
 
 2. Install dependencies and run the app:
 
+```bash
 npm install
 npm run dev
-
-Copy code
+```
 
 3. Open http://localhost:3000 in your browser to access the app.
 
