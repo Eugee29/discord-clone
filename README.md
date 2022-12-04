@@ -25,7 +25,7 @@ npm run dev
 
 ## Features
 
-- Real-time messaging and file sharing
+- Real-time messaging
 - Support for multiple chat rooms
 - User authentication with Firebase
 
