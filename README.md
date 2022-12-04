@@ -29,18 +29,7 @@ Copy code
 - Real-time messaging and file sharing
 - Support for multiple chat rooms
 - User authentication with Firebase
-- Customizable themes with Tailwind
 
-## Known Issues and Limitations
-
-- Currently, there is no support for direct messaging or private conversations.
-- File sharing is limited to certain file types.
-- Some features, such as user avatars, are not fully implemented.
 
 If you encounter any bugs or have suggestions for new features, please let us know by emailing uri2920@gmail.com.
 
-## Contributors
-
-- [Uri](https://github.com/uri2920) - Lead developer
-- [Jane](https://github.com/jane-doe) - UX designer
-- [John](https://github.com/john-smith) - Front-end developer
