@@ -30,5 +30,5 @@ npm run dev
 - User authentication with Firebase
 
 
-If you encounter any bugs or have suggestions for new features, please let us know by emailing uri2920@gmail.com.
+If you encounter any bugs, please let me know at uri2920@gmail.com.
 
