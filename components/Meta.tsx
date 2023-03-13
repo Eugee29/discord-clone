@@ -9,7 +9,7 @@ const Meta = ({ children }: Props) => {
   return (
     <Head>
       <meta name="description" content="Discord Clone - A communication app." />
-      <title>Discord</title>
+      <title>Accord</title>
       {children}
     </Head>
   )

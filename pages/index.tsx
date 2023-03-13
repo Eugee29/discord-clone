@@ -17,19 +17,11 @@ const Home: NextPage = () => {
       <HomePageHeader />
       <div className="h-full flex flex-col items-center gap1-8 flex-1">
         <h1 className="text-[15vw] md:text-9xl font-ginto-nord uppercase text-white z-10">
-          Discord
+          Accord
         </h1>
         <p className="text-[5vw] text-center text-white md:text-4xl mb-24 md:mb-12">
-          {'( Clone )'}
+          A chat application inspired by Discord
         </p>
-        {/* {user !== null ? (
-          <HomePageButton
-            isDark={true}
-            onClick={() => router.push('/conversations')}
-          >
-            Start Chatting
-          </HomePageButton>
-        ) : ( */}
         <div className="flex flex-col sm:flex-row gap-12 z-10 self-stretch sm:self-center mb-auto">
           {user !== null ? (
             <HomePageButton
@@ -53,7 +45,6 @@ const Home: NextPage = () => {
             </>
           )}
         </div>
-        {/* )} */}
       </div>
 
       <Hero1 className="absolute bottom-0 w-full" />
